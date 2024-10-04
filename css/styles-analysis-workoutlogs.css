@@ -1,0 +1,81 @@
+/* 공통 스타일 */
+.calendar {
+    display: grid;
+    grid-gap: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.day {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.day:hover {
+    background-color: #f0f0f0;
+}
+
+.today {
+    background-color: #ffeb3b; /* 오늘 날짜는 노란색 배경으로 강조 */
+    font-weight: bold;
+    border: 2px solid #fbc02d;
+}
+
+/* 주간 보기 그리드 */
+.week-grid {
+    grid-template-columns: repeat(7, 1fr); /* 7일을 1행에 배치 */
+}
+
+/* 월간 보기 그리드 */
+.month-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7열로 그리드 설정 (일~토) */
+    grid-auto-rows: minmax(100px, auto);   /* 각 셀의 최소 높이를 설정 */
+    grid-gap: 10px; /* 날짜들 사이에 간격을 추가 */
+}
+
+/* 빈 칸을 위한 스타일 (optional, 빈 칸에도 스타일 적용 가능) */
+.month-grid div:empty {
+    background-color: #f9f9f9; /* 빈 칸에 연한 색 배경 */
+}
+#exercise-records {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    font-size: 1.2em;
+}
+
+/* 기본 텍스트 스타일 */
+h2 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1.1em;
+    margin-right: 10px;
+}
+
+select {
+    padding: 10px;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 선택된 날짜 스타일 */
+.day[style*="font-weight: bold"] {
+    background-color: #d1c4e9; /* 선택된 날짜는 연한 보라색으로 표시 */
+    color: #673ab7;
+}

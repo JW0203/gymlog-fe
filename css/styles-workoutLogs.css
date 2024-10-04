@@ -1,0 +1,162 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #FFFFFF;
+}
+main {
+    padding-top: 30px; /* 상단 메뉴 높이 + 여백 */
+    padding-bottom: 70px; /* 하단 메뉴 높이 + 여백 */
+    overflow: auto; /* 내용이 넘칠 경우 스크롤바 생성 */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    position: fixed; /* 하단 고정 */
+    bottom: 0;
+    width: 100%; /* 너비 전체 사용 */
+    z-index: 1000; /* 다른 요소보다 위에 오도록 설정 */
+    background-color: #f0f0f0; /* 밝은 회색 배경 */
+    padding: 10px 20px; /* 패딩 설정 */
+    text-align: center;
+    height: 40px; /* 메뉴 높이 설정 */
+}
+
+.workout-container {
+    padding: 20px;
+    background-color: #7c7a7a;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+.workout-header {
+    border-bottom: 1px solid #fcfcfc;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.workout-header p {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.workout-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.recent-records {
+    background-color: #444;
+    border: none;
+    color: #7e7c7c;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.workout-content {
+    background-color: #444;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.memo {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #555;
+    border: none;
+    color: #FFF;
+    border-radius: 5px;
+    resize: none;
+}
+
+/*.set-details {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*}*/
+#set-details {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    gap: 10px; /* Optional: add some space between items */
+}
+
+.set-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.set-number {
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+
+.kg-input, .reps-input {
+    width: 60px;
+    padding: 5px;
+    margin-right: 10px;
+    background-color: #555;
+    border: 1px solid #ccc;
+    color: #FFF;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.complete-btn {
+    background-color: #555;
+    border: none;
+    color: #FFF;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.set-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.remove-set, .add-set {
+    background-color: transparent;
+    border: none;
+    color: #2196F3;
+    font-size: 1em;
+    cursor: pointer;
+    width: 50%;
+    text-align: center;
+}
+
+.remove-set {
+    justify-content: flex-start; /* Align to the left half */
+}
+
+.add-set {
+    justify-content: flex-end; /* Align to the right half */
+}
+
+.workout-footer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.footer-button {
+    background-color: #555;
+    border: none;
+    color: #FFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}

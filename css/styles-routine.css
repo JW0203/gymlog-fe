@@ -1,0 +1,123 @@
+
+/* 루틴 기록 화면 컨테이너 */
+.routine-container {
+    width: 100%;
+    max-width: 600px; /* 루틴 기록 화면 너비 조정 */
+    background-color: #fff; /* 배경을 밝게 변경 */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
+    margin: 20px;
+}
+
+/* 제목 스타일 */
+.routine-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 1.8em;
+}
+
+/* 라벨 스타일 */
+.routine-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* 입력 필드 스타일 */
+.routine-container input, .routine-container select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+/* 입력 필드 및 선택 항목 포커스 효과 */
+.routine-container input:focus, .routine-container select:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.2); /* 포커스 시 부드러운 녹색 그림자 */
+}
+
+/* 운동 추가 버튼 스타일 */
+#add-exercise {
+    width: 100%;
+    padding: 12px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+/* 운동 추가 버튼 호버 효과 */
+#add-exercise:hover {
+    background-color: #1976D2;
+}
+
+/* 루틴 저장 버튼 스타일 */
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+/* 루틴 저장 버튼 호버 효과 */
+.submit-button:hover {
+    background-color: #388E3C;
+}
+
+/* 에러 메시지 스타일 */
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+/* 운동 항목 추가될 때의 스타일 */
+.exercise-item {
+    padding: 15px;
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* 운동 선택 필드와 입력 필드 */
+.exercise-item select, .exercise-item input {
+    margin-top: 5px;
+}
+
+.remove-exercise {
+    background-color: #FF5252;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.remove-exercise:hover {
+    background-color: #D32F2F;
+}

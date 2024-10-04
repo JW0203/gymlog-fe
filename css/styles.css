@@ -1,0 +1,161 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 전체 뷰포트 높이를 채우도록 설정 */
+}
+
+header, footer {
+    background-color: #f0f0f0; /* 밝은 회색 배경 */
+    padding: 10px 20px; /* 패딩 설정 */
+    text-align: center;
+    height: 40px; /* 메뉴 높이 설정 */
+}
+
+.top-menu, .bottom-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around; /* 메뉴 아이템 간격을 균등하게 설정 */
+}
+
+.top-menu li, .bottom-menu li {
+    display: flex;
+}
+
+.top-menu a, .bottom-menu a {
+    text-decoration: none;
+    color: #333; /* 글자 색상 */
+    font-weight: bold;
+    padding: 8px 16px; /* 클릭 영역 확장 */
+    display: block;
+}
+
+nav.top-menu ul, nav.bottom-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav.top-menu a, nav.bottom-menu a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+header {
+    position: fixed; /* 상단 고정 */
+    top: 0;
+    width: 100%; /* 너비 전체 사용 */
+    z-index: 1000; /* 다른 요소보다 위에 오도록 설정 */
+}
+
+footer {
+    position: fixed; /* 하단 고정 */
+    bottom: 0;
+    width: 100%; /* 너비 전체 사용 */
+    z-index: 1000; /* 다른 요소보다 위에 오도록 설정 */
+}
+
+main {
+    padding-top: 60px; /* 상단 메뉴 높이 + 여백 */
+    padding-bottom: 60px; /* 하단 메뉴 높이 + 여백 */
+    overflow: auto; /* 내용이 넘칠 경우 스크롤바 생성 */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/*#calendar, #exercise-info {*/
+/*    width: 90%; !* 주요 내용 너비 설정 *!*/
+/*    margin: 20px auto; !* 중앙 정렬 *!*/
+/*    padding: 20px;*/
+/*    background-color: #fff; !* 배경색 설정 *!*/
+/*    box-shadow: 0 4px 8px rgba(0,0,0,0.1); !* 그림자 효과 *!*/
+/*    display: none; !* 기본적으로 숨김 *!*/
+/*}*/
+
+/*#exercise-info {*/
+/*    margin-top: 10px;*/
+/*}*/
+
+/*#calendar-controls {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+/*#calendar-controls button {*/
+/*    padding: 5px 10px;*/
+/*    margin: 0 5px;*/
+/*    background-color: #f0f0f0;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*#calendar-controls span {*/
+/*    font-size: 16px;*/
+/*    font-weight: bold;*/
+/*}*/
+
+/* 회원가입 폼 스타일 */
+#sign-up-form {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+#sign-up-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#sign-up-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+#sign-up-form label {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+#sign-up-form input {
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#sign-up-form button[type="submit"] {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#sign-up-form button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* 오류 메시지 스타일 (파란색) */
+.error-message {
+    color: blue;  /* 파란색 */
+    font-size: 14px;
+    margin-bottom: 15px;  /* 입력 필드와 다음 필드 사이에 여백 추가 */
+}

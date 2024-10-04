@@ -1,0 +1,67 @@
+
+
+/* 로그인 컨테이너 */
+.login-container {
+    width: 100%;
+    max-width: 320px; /* 입력란 크기에 맞춘 최대 너비 */
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* 패딩이 컨테이너의 전체 크기에 포함되도록 설정 */
+    color: #050505;
+}
+
+/* 로그인 제목 */
+.sign-in-div h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #050505;
+}
+
+/* 입력 필드 스타일 */
+.sign-in-div label {
+    display: block;
+    margin-bottom: 5px;
+    color: #050505;
+}
+
+.sign-in-div input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #fcfcfc;
+    color: #050505;
+    box-sizing: border-box; /* 패딩 포함 */
+}
+
+.sign-in-div input::placeholder {
+    color: #CCC;
+}
+
+/* 버튼 스타일 */
+.sign-in-div button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.sign-in-div button:hover {
+    background-color: #45a049;
+}
+
+/* 오류 메시지 스타일 */
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
