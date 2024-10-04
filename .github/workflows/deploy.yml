@@ -21,8 +21,8 @@ jobs:
 
       - name: S3 기존 파일들 전체 삭제 후 새로 업로드
         run: |
-          aws s3 rm --recursive s3://instagram-web
-          aws s3 cp ./ s3://instagram-web/ --recursive
+          aws s3 rm --recursive s3://gym-logs-fe
+          aws s3 cp ./ s3://gym-logs-fe/ --recursive
 
       - name: Cloudfront 캐시 무효호
         run: aws cloudfront create-invalidation --distribution-id E2WVYWBCG3JAXI --paths "/*"
