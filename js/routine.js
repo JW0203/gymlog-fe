@@ -1,7 +1,6 @@
 import { signIn } from "./signIn.js";
 import { clearContent, isAuthenticated } from "./common-functions.js";
-
-const apiUrl = 'http://localhost:3000';
+import {apiUrl} from "./config.js";
 
 document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('routine').addEventListener('click', async function () {

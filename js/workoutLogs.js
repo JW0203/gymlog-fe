@@ -1,7 +1,6 @@
 import { signIn } from "./signIn.js";
 import { isAuthenticated, clearContent } from "./common-functions.js";
-
-const apiUrl = 'http://localhost:3000';
+import {apiUrl} from "./config.js";
 
 document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('recording-workout-logs').addEventListener('click', async function() {
