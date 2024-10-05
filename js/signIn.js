@@ -1,7 +1,6 @@
 import {signUpForm} from "./signUp.js";
 import {clearContent, isAuthenticated, loadStylesheet} from "./common-functions.js";
-
-const apiUrl = 'http://localhost:3000';
+import {apiUrl} from "./config.js";
 
 export function signIn() {
 	const contentDiv = document.getElementById('load-content');

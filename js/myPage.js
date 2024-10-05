@@ -1,7 +1,6 @@
 import { signIn } from "./signIn.js";
 import { clearContent, isAuthenticated } from "./common-functions.js";
-
-const apiUrl = 'http://localhost:3000';
+import {apiUrl} from "./config.js";
 
 // 마이 페이지 버튼 클릭 시 처리
 document.addEventListener('DOMContentLoaded', function() {
