@@ -1,0 +1,1 @@
+export const apiUrl = 'https://api.my-gymlogs.com/'
