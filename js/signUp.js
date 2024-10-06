@@ -109,7 +109,7 @@ export function signUpForm() {
 				},
 				body: JSON.stringify(signUpData),
 			});
-
+			console.log(response);
 			if (!response.ok) {
 				throw new Error('회원가입 실패');
 			}
