@@ -1,1 +1,1 @@
-export const apiUrl = 'https://api.my-gymlogs.com:80'
+export const apiUrl = 'https://api.my-gymlogs.com'

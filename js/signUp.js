@@ -117,6 +117,7 @@ export function signUpForm() {
 			alert('회원가입이 성공적으로 완료되었습니다!');
 
 		} catch (error) {
+			alert('회원가입 중 오류 발생!');
 			console.error('회원가입 중 오류 발생:', error);
 			event.preventDefault();
 		}
