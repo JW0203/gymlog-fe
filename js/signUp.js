@@ -8,6 +8,7 @@ export function signUpForm() {
 		contentDiv.removeChild(contentDiv.firstChild);
 	}
 
+
 	// 새로운 div 생성 및 회원가입 폼 추가
 	const signUpDiv = document.createElement('div');
 	signUpDiv.id = 'sign-up-form';
@@ -40,6 +41,8 @@ export function signUpForm() {
 	// 폼 제출 시 유효성 검사
 	const form = document.getElementById('sign-up-form');
 	form.addEventListener('submit', async function(event) {
+
+		event.preventDefault();
 		// 오류 메시지 초기화
 		document.getElementById('name-error').textContent = '';
 		document.getElementById('email-error').textContent = '';
@@ -88,6 +91,7 @@ export function signUpForm() {
 		// 오류가 있으면 폼 제출 막기
 		if (hasError) {
 			event.preventDefault();
+			return;
 		}
 
 		const signUpData = {
