@@ -10,6 +10,13 @@ export function signIn() {
 		return;
 	}
 	loadSignInForm(contentDiv);
+
+	// 이벤트 리스너 등록
+	document.getElementById('sign-up').addEventListener('click', function () {
+		signUpForm(); // 바로 회원가입 폼을 표시
+	});
+
+	document.getElementById('sign-in-form').addEventListener('submit', (event) => handleSignInSubmit(event)); // 로그인 폼 제출
 }
 
 function loadSignInForm(contentDiv) {
