@@ -117,17 +117,23 @@ async function loadRoutineForm() {
 		const bodyParts = document.querySelectorAll('[name="body-part"]');
 
 		const routines = [];
+		const exercises = []
 		exerciseNames.forEach((exerciseName, index) => {
 			routines.push({
 				routineName: routineName,
 				bodyPart: bodyParts[index].value,
 				exerciseName: exerciseName.value
 			});
+			exercises.push({
+				bodyPart: bodyParts[index].value,
+				exerciseName: exerciseName.value
+			})
 		});
 
 		const requestData = {
 			routineName: routineName,
-			routines: routines
+			routines: routines,
+			exercises: exercises
 		};
 
 		// 백엔드로 데이터 전송
