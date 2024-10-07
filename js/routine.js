@@ -20,7 +20,7 @@ async function loadRoutineForm() {
 	clearContent(contentDiv);
 
 	// 루틴 목록 불러오기
-	const userId = localStorage.getItem('userId');  // 유저 ID를 로컬스토리지에서 가져옵니다.
+	const userId = localStorage.getItem('accessToken');  // 유저 ID를 로컬스토리지에서 가져옵니다.
 	let routines = [];
 	try {
 		routines = await getAllRoutines(apiUrl, userId);  // 유저의 저장된 루틴 목록을 가져옵니다.
@@ -161,9 +161,9 @@ async function loadRoutineForm() {
 	}
 }
 
-async function getAllRoutines(apiUrl, userId) {
+async function getAllRoutines(apiUrl) {
 	try {
-		const response = await fetch(`${apiUrl}/routines/all?userId=${userId}`, {
+		const response = await fetch(`${apiUrl}/routines/all`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
