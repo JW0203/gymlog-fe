@@ -109,13 +109,11 @@ export function signUpForm() {
 				},
 				body: JSON.stringify(signUpData),
 			});
-			console.log(response);
 			if (!response.ok) {
 				throw new Error('회원가입 실패');
 			}
 
 			const result = await response.json();
-			console.log('백엔드로부터 받은 응답:', result);
 
 			// 성공 시 사용자에게 알림 또는 다른 동작 수행
 			alert('회원가입이 성공적으로 완료되었습니다!');
