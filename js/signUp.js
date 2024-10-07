@@ -1,6 +1,5 @@
 import {apiUrl} from "./config.js";
 export function signUpForm() {
-	// document.getElementById('sign-up').addEventListener('click', function(){
 	const contentDiv = document.getElementById('load-content');
 
 	// load-content 내의 모든 기존 폼 제거
@@ -123,5 +122,4 @@ export function signUpForm() {
 			event.preventDefault();
 		}
 	});
-// })
 }
