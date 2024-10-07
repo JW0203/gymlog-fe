@@ -20,10 +20,9 @@ async function loadRoutineForm() {
 	clearContent(contentDiv);
 
 	// 루틴 목록 불러오기
-	const userId = localStorage.getItem('accessToken');  // 유저 ID를 로컬스토리지에서 가져옵니다.
 	let routines = [];
 	try {
-		routines = await getAllRoutines(apiUrl, userId);  // 유저의 저장된 루틴 목록을 가져옵니다.
+		routines = await getAllRoutines(apiUrl);  // 유저의 저장된 루틴 목록을 가져옵니다.
 	} catch (error) {
 		console.error('루틴 목록을 불러오는 중 오류 발생:', error);
 	}
