@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
         clearContent(contentDiv);
 
         if (isAuthenticated()) {
-            console.log(`Bearer ${localStorage.getItem('accessToken')}`)
             // 토큰이 있으면 바로 사용자 정보를 표시
             await showUserInfo();
         } else {
@@ -32,8 +31,7 @@ async function showUserInfo() {
                 'Content-Type': 'application/json',
             },
         });
-        console.log(`Bearer ${localStorage.getItem('accessToken')}`)
-        console.log(response);
+
         if (!response.ok) {
             throw new Error('사용자 정보를 불러오는 데 실패했습니다.');
         }
