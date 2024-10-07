@@ -11,10 +11,10 @@ export function signIn() {
 	}
 	loadSignInForm(contentDiv);
 
-	// 이벤트 리스너 등록
-	document.getElementById('sign-up').addEventListener('click', function () {
-		signUpForm(); // 바로 회원가입 폼을 표시
-	});
+	// // 이벤트 리스너 등록
+	// document.getElementById('sign-up').addEventListener('click', function () {
+	// 	signUpForm(); // 바로 회원가입 폼을 표시
+	// });
 
 	document.getElementById('sign-in-form').addEventListener('submit', (event) => handleSignInSubmit(event)); // 로그인 폼 제출
 }
@@ -47,9 +47,10 @@ function loadSignInForm(contentDiv) {
 	// 스타일시트 로드
 	loadStylesheet('../css/styles-signIn.css');
 
-	// 이벤트 리스너 등록
-	document.getElementById('sign-up').addEventListener('click', function () { signUpForm(); }); // 회원가입 버튼
+	// 이벤트 리스너 등록// 회원가입 버튼
 	document.getElementById('sign-in-form').addEventListener('submit',(event)=> handleSignInSubmit(event)); // 로그인 폼 제출
+
+	document.getElementById('sign-up').addEventListener('click', function () { signUpForm(); });
 }
 
 async function handleSignInSubmit(event) {
