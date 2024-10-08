@@ -25,53 +25,84 @@ function loadWorkoutLogsForm() {
 	// 새로운 div 생성 및 운동 기록 화면 추가
 	const workoutLogsDiv = document.createElement('div');
 	workoutLogsDiv.className = 'container';
-	workoutLogsDiv.innerHTML = `
-        <main>
-            <div id="workout-container" class="workout-container">
-                <div class="workout-header">
-                    <div class="editable-title">
-                        <span id="workout-number">1</span>
-                        <select id="body-part" name="body-part" class="editable-input">
-                            <option value="Chest">가슴</option>
-                            <option value="Abs">배</option>
-                            <option value="Shoulders">어깨</option>
-                            <option value="Back">등</option>
-                            <option value="Legs">하체</option>
-                        </select>
-                        <span> | </span>
-                        <input type="text" id="workout-machine" placeholder="운동 이름" class="editable-input">
-                    </div>
-                </div>
-                <div id="workout-content" class="workout-content">
-                    <div id="set-details" class="set-details">
-                        <div class="set-item">
-                            <span class="set-number">1</span>
-                            <input type="number" class="kg-input" placeholder="kg">
-                            <input type="number" class="reps-input" placeholder="회">
-                            <input type="checkbox" class="complete-checkbox">
-                        </div>
-                    </div>
-                    <div class="set-actions">
-                        <button class="remove-set">- 세트삭제</button>
-                        <button class="add-set">＋ 세트추가</button>
-                    </div>
-                </div>
-            </div>
-            <div class="workout-footer">
-                <button class="footer-button" id="add-workout">운동 추가</button>
-                <button class="footer-button" id="remove-workout">운동 삭제</button>
-                <button class="footer-button" id="save-workout">운동 저장</button>
-            </div>
-            <footer>
-                <nav class="bottom-menu">
-                    <ul>
-                        <button id="home">홈</button>
-                        <button id="myPage">마이 페이지</button>
-                    </ul>
-                </nav>
-            </footer>
-        </main>
-    `;
+	workoutLogsDiv.innerHTML=`
+		<div class="workout-container">
+			<div class="workout-header">
+				<div class="editable-title">
+					<span class="workout-number">1</span>
+					<label for="body-part">운동 부위:</label>
+					<select class="body-part editable-input" name="body-part">
+						<option value="Chest">가슴</option>
+						<option value="Abs">배</option>
+						<option value="Shoulders">어깨</option>
+						<option value="Back">등</option>
+						<option value="Legs">하체</option>
+					</select>
+					<span> | </span>
+					<label for="workout-machine">운동 이름:</label>
+					<input type="text" class="workout-machine editable-input" placeholder="운동 이름">
+				</div>
+			</div>
+			<div class="workout-content">
+				<div class="set-details">
+					<div class="set-item">
+						<span class="set-number">1</span>
+						<label for="kg-input">무게 (kg):</label>
+						<input type="number" class="kg-input" placeholder="kg">
+						<label for="reps-input">횟수:</label>
+						<input type="number" class="reps-input" placeholder="회">
+						<input type="checkbox" class="complete-checkbox"> 완료
+					</div>
+				</div>
+				<div class="set-actions">
+					<button class="remove-set">- 세트 삭제</button>
+					<button class="add-set">＋ 세트 추가</button>
+				</div>
+			</div>
+		</div>
+		<div class="workout-footer">
+			<button class="footer-button" id="add-workout">운동 추가</button>
+			<button class="footer-button" id="remove-workout">운동 삭제</button>
+			<button class="footer-button" id="save-workout">운동 저장</button>
+		</div>
+	`;
+	// workoutLogsDiv.innerHTML = `
+	// 	<div id="workout-container" class="workout-container">
+	// 		<div class="workout-header">
+	// 			<div class="editable-title">
+	// 				<span id="workout-number">1</span>
+	// 				<select id="body-part" name="body-part" class="editable-input">
+	// 					<option value="Chest">가슴</option>
+	// 					<option value="Abs">배</option>
+	// 					<option value="Shoulders">어깨</option>
+	// 					<option value="Back">등</option>
+	// 					<option value="Legs">하체</option>
+	// 				</select>
+	// 				<span> | </span>
+	// 				<input type="text" id="workout-machine" placeholder="운동 이름" class="editable-input">
+	// 			</div>
+	// 		</div>
+	// 		<div id="workout-content" class="workout-content">
+	// 			<div id="set-details" class="set-details">
+	// 				<div class="set-item">
+	// 					<span class="set-number">1</span>
+	// 					<input type="number" class="kg-input" placeholder="kg">
+	// 					<input type="number" class="reps-input" placeholder="회">
+	// 					<input type="checkbox" class="complete-checkbox">
+	// 				</div>
+	// 			</div>
+	// 			<div class="set-actions">
+	// 				<button class="remove-set">- 세트삭제</button>
+	// 				<button class="add-set">＋ 세트추가</button>
+	// 			</div>
+	// 		</div>
+	// 	</div>
+	// 	<div class="workout-footer">
+	// 		<button class="footer-button" id="add-workout">운동 추가</button>
+	// 		<button class="footer-button" id="remove-workout">운동 삭제</button>
+	// 		<button class="footer-button" id="save-workout">운동 저장</button>
+	// 	</div>
+    // `;
 
 	// load-content에 workoutLogsDiv 추가
 	contentDiv.appendChild(workoutLogsDiv);
