@@ -47,9 +47,9 @@ function loadWorkoutLogsForm() {
 				<div class="set-details">
 					<div class="set-item">
 						<span class="set-number">1</span>
-						<label for="kg-input">무게 (kg):</label>
+<!--						<label for="kg-input">무게 (kg):</label>-->
 						<input type="number" class="kg-input" placeholder="kg">
-						<label for="reps-input">횟수:</label>
+<!--						<label for="reps-input">횟수:</label>-->
 						<input type="number" class="reps-input" placeholder="회">
 						<input type="checkbox" class="complete-checkbox"> 완료
 					</div>
@@ -105,7 +105,7 @@ function loadWorkoutLogsForm() {
     // `;
 
 	// load-content에 workoutLogsDiv 추가
-	contentDiv.appendChild(workoutLogsDiv);
+	// contentDiv.appendChild(workoutLogsDiv);
 
 	// 운동 추가 버튼 클릭 이벤트
 	document.getElementById('add-workout').addEventListener('click', function() {
