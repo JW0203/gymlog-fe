@@ -183,11 +183,15 @@ function loadWorkoutLogsForm() {
 		const workoutContainers = document.querySelectorAll('.workout-container');
 
 		// 각 운동에 대한 데이터 수집
+		let cnt = 0
 		workoutContainers.forEach((workoutContainer) => {
 			const bodyPart = workoutContainer.querySelector('.editable-input').value;
 			const exerciseName = workoutContainer.querySelectorAll('.editable-input')[1].value;
 
 			const sets = workoutContainer.querySelectorAll('.set-item');
+			console.log(cnt)
+			console.log(sets)
+			cnt += 1
 			sets.forEach((set, setIndex) => {
 				const weight = set.querySelector('.kg-input').value;
 				const repeatCount = set.querySelector('.reps-input').value;
@@ -211,7 +215,7 @@ function loadWorkoutLogsForm() {
 			workoutLogs: workoutLogs,
 			exercises: exercises
 		};
-
+		console.log(requestData);
 		try {
 			const response = await fetch(`${apiUrl}/workout-logs`, {
 				method: 'POST',
