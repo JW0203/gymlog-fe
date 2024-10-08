@@ -105,7 +105,7 @@ function loadWorkoutLogsForm() {
     // `;
 
 	// load-content에 workoutLogsDiv 추가
-	// contentDiv.appendChild(workoutLogsDiv);
+	contentDiv.appendChild(workoutLogsDiv);
 
 	// 운동 추가 버튼 클릭 이벤트
 	document.getElementById('add-workout').addEventListener('click', function() {
