@@ -109,7 +109,7 @@ function loadWorkoutLogsForm() {
 
 	// 운동 추가 버튼 클릭 이벤트
 	document.getElementById('add-workout').addEventListener('click', function() {
-		const workoutContainer = document.getElementById('workout-container');
+		const workoutContainer = document.querySelector('.workout-container');
 		const newWorkout = document.createElement('div');
 		newWorkout.className = 'workout-container';
 		newWorkout.innerHTML = `
