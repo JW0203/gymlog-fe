@@ -109,41 +109,84 @@ function loadWorkoutLogsForm() {
 
 	// 운동 추가 버튼 클릭 이벤트
 	document.getElementById('add-workout').addEventListener('click', function() {
-		const workoutContainer = document.querySelector('.workout-container');
+		// 운동들을 감싸는 상위 컨테이너 선택
+		const workoutsContainer = document.querySelector('.workouts-container'); // 상위 컨테이너로 변경
 		const newWorkout = document.createElement('div');
-		newWorkout.className = 'workout-container';
+		newWorkout.className = 'workout-container'; // id가 아닌 class로 사용
+
+		// 새로운 운동 추가 시 기본 값을 초기화하여 중복되지 않도록 처리
 		newWorkout.innerHTML = `
-            <div class="workout-header">
-                <div class="editable-title">
-                    <span class="workout-number">${document.querySelectorAll('.workout-container').length + 1}</span>
-                    <select id="body-part" name="body-part" class="editable-input">
-                        <option value="Chest">가슴</option>
-                        <option value="Abs">배</option>
-                        <option value="Shoulders">어깨</option>
-                        <option value="Back">등</option>
-                        <option value="Legs">하체</option>
-                    </select>
-                    <span> | </span>
-                    <input type="text" placeholder="운동 이름" class="editable-input">
+        <div class="workout-header">
+            <div class="editable-title">
+                <span class="workout-number">${document.querySelectorAll('.workout-container').length + 1}</span>
+                <select name="body-part" class="editable-input">
+                    <option value="">부위 선택</option>
+                    <option value="Chest">가슴</option>
+                    <option value="Abs">배</option>
+                    <option value="Shoulders">어깨</option>
+                    <option value="Back">등</option>
+                    <option value="Legs">하체</option>
+                </select>
+                <span> | </span>
+                <input type="text" placeholder="운동 이름" class="editable-input" value="">
+            </div>
+        </div>
+        <div class="workout-content">
+            <div class="set-details">
+                <div class="set-item">
+                    <span class="set-number">1</span>
+                    <input type="number" class="kg-input" placeholder="kg">
+                    <input type="number" class="reps-input" placeholder="회">
+                    <input type="checkbox" class="complete-checkbox">
                 </div>
             </div>
-            <div class="workout-content">
-                <div class="set-details">
-                    <div class="set-item">
-                        <span class="set-number">1</span>
-                        <input type="number" class="kg-input" placeholder="kg">
-                        <input type="number" class="reps-input" placeholder="회">
-                        <input type="checkbox" class="complete-checkbox">
-                    </div>
-                </div>
-                <div class="set-actions">
-                    <button class="remove-set">- 세트삭제</button>
-                    <button class="add-set">＋ 세트추가</button>
-                </div>
+            <div class="set-actions">
+                <button class="remove-set">- 세트삭제</button>
+                <button class="add-set">＋ 세트추가</button>
             </div>
-        `;
-		workoutContainer.appendChild(newWorkout);
+        </div>
+    `;
+
+		// 상위 컨테이너에 새 운동 추가
+		workoutsContainer.appendChild(newWorkout);
 	});
+	// 운동 추가 버튼 클릭 이벤트
+	// document.getElementById('add-workout').addEventListener('click', function() {
+	// 	const workoutContainer = document.querySelector('.workout-container');
+	// 	const newWorkout = document.createElement('div');
+	// 	newWorkout.className = 'workout-container';
+	// 	newWorkout.innerHTML = `
+    //         <div class="workout-header">
+    //             <div class="editable-title">
+    //                 <span class="workout-number">${document.querySelectorAll('.workout-container').length + 1}</span>
+    //                 <select id="body-part" name="body-part" class="editable-input">
+    //                     <option value="Chest">가슴</option>
+    //                     <option value="Abs">배</option>
+    //                     <option value="Shoulders">어깨</option>
+    //                     <option value="Back">등</option>
+    //                     <option value="Legs">하체</option>
+    //                 </select>
+    //                 <span> | </span>
+    //                 <input type="text" placeholder="운동 이름" class="editable-input">
+    //             </div>
+    //         </div>
+    //         <div class="workout-content">
+    //             <div class="set-details">
+    //                 <div class="set-item">
+    //                     <span class="set-number">1</span>
+    //                     <input type="number" class="kg-input" placeholder="kg">
+    //                     <input type="number" class="reps-input" placeholder="회">
+    //                     <input type="checkbox" class="complete-checkbox">
+    //                 </div>
+    //             </div>
+    //             <div class="set-actions">
+    //                 <button class="remove-set">- 세트삭제</button>
+    //                 <button class="add-set">＋ 세트추가</button>
+    //             </div>
+    //         </div>
+    //     `;
+	// 	workoutContainer.appendChild(newWorkout);
+	// });
 
 	// 운동 삭제 버튼 클릭 이벤트
 	document.getElementById('remove-workout').addEventListener('click', function() {
