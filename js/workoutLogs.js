@@ -81,29 +81,36 @@ function addWorkout() {
 // 운동 삭제 함수
 function deleteWorkout(workoutId) {
 	const workoutElement = document.getElementById(`workout-${workoutId}`);
-	workoutElement.remove();
 
-	// 운동 번호 재정렬
-	const workouts = document.querySelectorAll('.workout-container');
-	workouts.forEach((workout, index) => {
-		// 운동 ID를 재설정
-		workout.setAttribute('id', `workout-${index + 1}`);
-		const selectElement = workout.querySelector('select');
-		const inputElement = workout.querySelector('input');
-		const setList = workout.querySelector('.set-list');
+	// workoutElement가 null인지 확인
+	if (workoutElement) {
+		workoutElement.remove();
 
-		// null 값 확인 후 setAttribute 실행
-		if (selectElement) selectElement.setAttribute('id', `body-part-${index + 1}`);
-		if (inputElement) inputElement.setAttribute('id', `exercise-name-${index + 1}`);
-		if (setList) setList.setAttribute('id', `set-list-${index + 1}`);
+		// 운동 번호 재정렬
+		const workouts = document.querySelectorAll('.workout-container');
+		workouts.forEach((workout, index) => {
+			// 운동 ID를 재설정
+			workout.setAttribute('id', `workout-${index + 1}`);
+			const selectElement = workout.querySelector('select');
+			const inputElement = workout.querySelector('input');
+			const setList = workout.querySelector('.set-list');
 
-		const addSetButton = workout.querySelector('.add-set');
-		if (addSetButton) addSetButton.addEventListener('click', () => addSet(index + 1));
+			// null 값 확인 후 setAttribute 실행
+			if (selectElement) selectElement.setAttribute('id', `body-part-${index + 1}`);
+			if (inputElement) inputElement.setAttribute('id', `exercise-name-${index + 1}`);
+			if (setList) setList.setAttribute('id', `set-list-${index + 1}`);
 
-		const deleteWorkoutButton = workout.querySelector('.delete-workout');
-		if (deleteWorkoutButton) deleteWorkoutButton.addEventListener('click', () => deleteWorkout(index + 1));
-	});
+			const addSetButton = workout.querySelector('.add-set');
+			if (addSetButton) addSetButton.addEventListener('click', () => addSet(index + 1));
+
+			const deleteWorkoutButton = workout.querySelector('.delete-workout');
+			if (deleteWorkoutButton) deleteWorkoutButton.addEventListener('click', () => deleteWorkout(index + 1));
+		});
+	} else {
+		console.error(`workout-${workoutId} 요소를 찾을 수 없습니다.`);
+	}
 }
+
 //
 // function deleteWorkout(workoutId) {
 // 	const workoutElement = document.getElementById(`workout-${workoutId}`);
