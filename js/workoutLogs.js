@@ -151,6 +151,7 @@ function addSet(workoutId) {
 function deleteSet(element, workoutId) {
 	const setList = document.getElementById(`set-list-${workoutId}`);
 	element.parentElement.remove();
+}
 
 async function saveWorkout() {
 	const workoutLogs = [];
