@@ -66,11 +66,14 @@ function addWorkout() {
       <!-- 추가된 세트가 여기에 표시됩니다 -->
     </ul>
 
-    <button onclick="addSet(${workoutCount})">세트 추가</button>
-    <button onclick="deleteWorkout(${workoutCount})">운동 삭제</button>
+    <button class="add-set">세트 추가</button>
+    <button class="delete-workout">운동 삭제</button>
   `;
 
 	workoutContainerArea.appendChild(newWorkoutContainer);
+
+	newWorkoutContainer.querySelector('.add-set').addEventListener('click', () => addSet(workoutCount));
+	newWorkoutContainer.querySelector('.delete-workout').addEventListener('click', () => deleteWorkout(workoutCount));
 }
 
 // 운동 삭제 함수
@@ -109,10 +112,11 @@ function addSet(workoutId) {
     <span>${setCount}</span>
     <input type="number" placeholder="kg" min="0">
     <input type="number" placeholder="횟수" min="0">
-    <button onclick="deleteSet(this, ${workoutId})">삭제</button>
+    <button class="delete-set">삭제</button>
   `;
 
 	setList.appendChild(newSet);
+	newSet.querySelector('.delete-set').addEventListener('click', (e) => deleteSet(e.target, workoutId));
 }
 
 // 세트 삭제 기능
