@@ -358,66 +358,66 @@ async function requestSaveWorkoutLogs(requestData) {
 // 		}
 // 	});
 //
-	// 운동 저장 버튼 클릭 시 데이터 백엔드 전송
-	document.getElementById('save-workout').addEventListener('click', async function() {
-		const workoutLogs = [];
-		const exercises = [];
-		const workoutContainers = document.querySelectorAll('.workout-container');
-
-		// 각 운동에 대한 데이터 수집
-		let cnt = 0
-		workoutContainers.forEach((workoutContainer) => {
-			const bodyPart = workoutContainer.querySelector('.editable-input').value;
-			const exerciseName = workoutContainer.querySelectorAll('.editable-input')[1].value;
-
-			const sets = workoutContainer.querySelectorAll('.set-item');
-			console.log(cnt)
-			console.log(sets)
-			cnt += 1
-			sets.forEach((set, setIndex) => {
-				const weight = set.querySelector('.kg-input').value;
-				const repeatCount = set.querySelector('.reps-input').value;
-
-				workoutLogs.push({
-					setCount: setIndex + 1,
-					weight: Number(weight),
-					repeatCount: Number(repeatCount),
-					bodyPart: bodyPart,
-					exerciseName: exerciseName
-				});
-			});
-
-			exercises.push({
-				bodyPart: bodyPart,
-				exerciseName: exerciseName
-			});
-		});
-
-		const requestData = {
-			workoutLogs: workoutLogs,
-			exercises: exercises
-		};
-		console.log(requestData);
-		try {
-			const response = await fetch(`${apiUrl}/workout-logs`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-				},
-				body: JSON.stringify(requestData),
-			});
-
-			if (!response.ok) {
-				throw new Error('운동 기록 저장 실패');
-			}
-
-			const result = await response.json();
-			console.log('백엔드로부터 받은 응답:', result);
-			alert('운동 기록이 성공적으로 저장되었습니다!');
-		} catch (error) {
-			console.error('운동 기록 저장 중 오류 발생:', error);
-			alert('운동 기록 저장에 실패했습니다.');
-		}
-	});
+// 	// 운동 저장 버튼 클릭 시 데이터 백엔드 전송
+// 	document.getElementById('save-workout').addEventListener('click', async function() {
+// 		const workoutLogs = [];
+// 		const exercises = [];
+// 		const workoutContainers = document.querySelectorAll('.workout-container');
+//
+// 		// 각 운동에 대한 데이터 수집
+// 		let cnt = 0
+// 		workoutContainers.forEach((workoutContainer) => {
+// 			const bodyPart = workoutContainer.querySelector('.editable-input').value;
+// 			const exerciseName = workoutContainer.querySelectorAll('.editable-input')[1].value;
+//
+// 			const sets = workoutContainer.querySelectorAll('.set-item');
+// 			console.log(cnt)
+// 			console.log(sets)
+// 			cnt += 1
+// 			sets.forEach((set, setIndex) => {
+// 				const weight = set.querySelector('.kg-input').value;
+// 				const repeatCount = set.querySelector('.reps-input').value;
+//
+// 				workoutLogs.push({
+// 					setCount: setIndex + 1,
+// 					weight: Number(weight),
+// 					repeatCount: Number(repeatCount),
+// 					bodyPart: bodyPart,
+// 					exerciseName: exerciseName
+// 				});
+// 			});
+//
+// 			exercises.push({
+// 				bodyPart: bodyPart,
+// 				exerciseName: exerciseName
+// 			});
+// 		});
+//
+// 		const requestData = {
+// 			workoutLogs: workoutLogs,
+// 			exercises: exercises
+// 		};
+// 		console.log(requestData);
+// 		try {
+// 			const response = await fetch(`${apiUrl}/workout-logs`, {
+// 				method: 'POST',
+// 				headers: {
+// 					'Content-Type': 'application/json',
+// 					'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+// 				},
+// 				body: JSON.stringify(requestData),
+// 			});
+//
+// 			if (!response.ok) {
+// 				throw new Error('운동 기록 저장 실패');
+// 			}
+//
+// 			const result = await response.json();
+// 			console.log('백엔드로부터 받은 응답:', result);
+// 			alert('운동 기록이 성공적으로 저장되었습니다!');
+// 		} catch (error) {
+// 			console.error('운동 기록 저장 중 오류 발생:', error);
+// 			alert('운동 기록 저장에 실패했습니다.');
+// 		}
+// 	});
 // }
