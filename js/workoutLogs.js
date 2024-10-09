@@ -78,38 +78,43 @@ function addWorkout() {
 }
 
 // 운동 삭제 함수
-// 운동 삭제 함수
 function deleteWorkout(workoutId) {
 	const workoutElement = document.getElementById(`workout-${workoutId}`);
 
 	// workoutElement가 null인지 확인
 	if (workoutElement) {
+		// 요소 삭제
 		workoutElement.remove();
 
 		// 운동 번호 재정렬
 		const workouts = document.querySelectorAll('.workout-container');
 		workouts.forEach((workout, index) => {
-			// 운동 ID를 재설정
-			workout.setAttribute('id', `workout-${index + 1}`);
+			// 운동 ID를 재설정 (1부터 시작)
+			const newWorkoutId = index + 1;
+			workout.setAttribute('id', `workout-${newWorkoutId}`);
+
 			const selectElement = workout.querySelector('select');
 			const inputElement = workout.querySelector('input');
 			const setList = workout.querySelector('.set-list');
 
 			// null 값 확인 후 setAttribute 실행
-			if (selectElement) selectElement.setAttribute('id', `body-part-${index + 1}`);
-			if (inputElement) inputElement.setAttribute('id', `exercise-name-${index + 1}`);
-			if (setList) setList.setAttribute('id', `set-list-${index + 1}`);
+			if (selectElement) selectElement.setAttribute('id', `body-part-${newWorkoutId}`);
+			if (inputElement) inputElement.setAttribute('id', `exercise-name-${newWorkoutId}`);
+			if (setList) setList.setAttribute('id', `set-list-${newWorkoutId}`);
 
+			// 이벤트 리스너 재설정
 			const addSetButton = workout.querySelector('.add-set');
-			if (addSetButton) addSetButton.addEventListener('click', () => addSet(index + 1));
+			if (addSetButton) addSetButton.addEventListener('click', () => addSet(newWorkoutId));
 
 			const deleteWorkoutButton = workout.querySelector('.delete-workout');
-			if (deleteWorkoutButton) deleteWorkoutButton.addEventListener('click', () => deleteWorkout(index + 1));
+			if (deleteWorkoutButton) deleteWorkoutButton.addEventListener('click', () => deleteWorkout(newWorkoutId));
 		});
 	} else {
+		// 요소를 찾을 수 없을 때 콘솔에 메시지 출력
 		console.error(`workout-${workoutId} 요소를 찾을 수 없습니다.`);
 	}
 }
+
 
 //
 // function deleteWorkout(workoutId) {
