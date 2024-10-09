@@ -100,11 +100,11 @@ button:hover {
     background-color: #555;
 }
 
-#load-content {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-}
+/*#load-content {*/
+/*    background-color: #f9f9f9;*/
+/*    padding: 20px;*/
+/*    border-radius: 10px;*/
+/*}*/
 
 .set-list {
     list-style-type: none;
