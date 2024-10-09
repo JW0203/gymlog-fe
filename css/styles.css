@@ -14,6 +14,23 @@ header, footer {
     height: 40px; /* 메뉴 높이 설정 */
 }
 
+select, input, button {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: none;
+}
+button {
+    width: 80%;
+    background-color: #1E90FF;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #4682B4;
+}
+
 .top-menu, .bottom-menu {
     list-style: none;
     padding: 0;
@@ -105,6 +122,109 @@ main {
 /*    font-size: 16px;*/
 /*    font-weight: bold;*/
 /*}*/
+
+/* 운동 기록 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: black;
+    text-align: center;
+}
+.container-recording-workout-logs {
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+}
+select, input, button {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: none;
+}
+button {
+    width: 80%;
+    background-color: #1E90FF;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #4682B4;
+}
+.menu {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.menu:hover {
+    background-color: #555;
+}
+#load-content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+}
+.set-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+.set-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #444;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    color: white;
+}
+.set-list li input {
+    width: 45px;
+    padding: 5px;
+    margin: 0 5px;
+    border-radius: 5px;
+    text-align: center;
+}
+.set-list li button {
+    background-color: #FF6347;
+    width: auto;
+    margin-left: 10px;
+}
+.inline-inputs {
+    display: flex;
+    justify-content: space-between;
+}
+.inline-inputs select {
+    width: 25%;
+}
+.inline-inputs input {
+    width: 70%;
+}
+.spacer {
+    width: 5%;
+}
+.workout-container {
+    margin-bottom: 20px;
+    background-color: #222;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+}
+.workout-record {
+    margin-top: 20px;
+    background-color: #444;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+    color: white;
+}
 
 /* 회원가입 폼 스타일 */
 #sign-up-form {

@@ -20,8 +20,8 @@ function loadWorkoutLogsForm() {
 	clearContent(loadContent);
 
 	loadContent.innerHTML = `
-      <div class="container">
-        <h2>운동 기록</h2>
+      <div class="container-recording-workout-logs">
+<!--        <h2>운동 기록</h2>-->
 
         <div id="workout-container-area">
           <!-- 새로운 운동 컨테이너가 여기에 추가됩니다 -->
@@ -29,13 +29,6 @@ function loadWorkoutLogsForm() {
 
         <button id="add-workout">운동 추가</button>
         <button id="save-workout">운동 저장</button>
-
-        <div id="workout-record" class="workout-record">
-          <h3>운동 기록</h3>
-          <div id="workout-record-list">
-            <!-- 운동 기록이 여기에 표시됩니다 -->
-          </div>
-        </div>
       </div>
     `;
 	document.getElementById("add-workout").addEventListener("click", addWorkout);
