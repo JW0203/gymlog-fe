@@ -45,11 +45,12 @@ async function loadRoutineForm() {
                 <div class="exercise-item">
                     <label for="body-part-routine">부위 선택:</label>
                     <select id="body-part" name="body-part">
-                        <option value="Chest">가슴</option>
-                        <option value="Abs">배</option>
-                        <option value="Shoulders">어깨</option>
                         <option value="Back">등</option>
-                        <option value="Legs">하체</option>
+						<option value="Chest">가슴</option>
+						<option value="Legs">다리</option>
+						<option value="Arm">팔</option>
+						<option value="Shoulders">어깨</option>
+						<option value="Abs">배</option>
                     </select>
 
                     <label for="exercise-name">운동 이름:</label>
@@ -82,11 +83,12 @@ async function loadRoutineForm() {
 		newExercise.innerHTML = `
             <label for="body-part">부위 선택:</label>
             <select id="body-part" name="body-part">
-                <option value="Chest">가슴</option>
-                <option value="Abs">배</option>
-                <option value="Shoulders">어깨</option>
                 <option value="Back">등</option>
-                <option value="Legs">하체</option>
+				<option value="Chest">가슴</option>
+				<option value="Legs">다리</option>
+				<option value="Arm">팔</option>
+				<option value="Shoulders">어깨</option>
+				<option value="Abs">배</option>
             </select>
 
             <label for="exercise-name">운동 이름:</label>
@@ -208,6 +210,7 @@ function fillRoutineForm(routine) {
                 <option value="Shoulders" ${exercise.bodyPart === 'Shoulders' ? 'selected' : ''}>어깨</option>
                 <option value="Back" ${exercise.bodyPart === 'Back' ? 'selected' : ''}>등</option>
                 <option value="Legs" ${exercise.bodyPart === 'Legs' ? 'selected' : ''}>하체</option>
+                <option value="ARM" ${exercise.bodyPart === 'ARM' ? 'selected' : ''}>팔</option>
             </select>
 
             <label for="exercise-name">운동 이름:</label>
@@ -225,11 +228,12 @@ function clearRoutineForm() {
         <div class="exercise-item">
             <label for="body-part">부위 선택:</label>
             <select id="body-part" name="body-part">
-                <option value="Chest">가슴</option>
-                <option value="Abs">배</option>
-                <option value="Shoulders">어깨</option>
                 <option value="Back">등</option>
-                <option value="Legs">하체</option>
+				<option value="Chest">가슴</option>
+				<option value="Legs">다리</option>
+				<option value="Arm">팔</option>
+				<option value="Shoulders">어깨</option>
+				<option value="Abs">배</option>
             </select>
 
             <label for="exercise-name">운동 이름:</label>

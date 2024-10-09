@@ -50,11 +50,12 @@ function addWorkout() {
 	newWorkoutContainer.innerHTML = `
     <div class="inline-inputs">
       <select id="body-part-${workoutCount}">
-        <option value="back">등</option>
-        <option value="chest">가슴</option>
-        <option value="legs">다리</option>
-        <option value="arms">팔</option>
-        <option value="shoulders">어깨</option>
+        <option value="Back">등</option>
+        <option value="Chest">가슴</option>
+        <option value="Legs">다리</option>
+        <option value="Arm">팔</option>
+        <option value="Shoulders">어깨</option>
+        <option value="Abs">배</option>
       </select>
 
       <div class="spacer"></div>
