@@ -115,32 +115,6 @@ function deleteWorkout(workoutId) {
 	}
 }
 
-
-//
-// function deleteWorkout(workoutId) {
-// 	const workoutElement = document.getElementById(`workout-${workoutId}`);
-// 	workoutElement.remove();
-//
-// 	// 운동 번호 재정렬
-// 	const workouts = document.querySelectorAll('.workout-container');
-// 	workouts.forEach((workout, index) => {
-// 		workout.setAttribute('id', `workout-${index + 1}`);
-// 		const selectElement = workout.querySelector('select');
-// 		const inputElement = workout.querySelector('input');
-// 		const setList = workout.querySelector('.set-list');
-//
-// 		selectElement.setAttribute('id', `body-part-${index + 1}`);
-// 		inputElement.setAttribute('id', `exercise-name-${index + 1}`);
-// 		setList.setAttribute('id', `set-list-${index + 1}`);
-//
-// 		const addSetButton = workout.querySelector('button[onclick^="addSet"]');
-// 		addSetButton.setAttribute('onclick', `addSet(${index + 1})`);
-//
-// 		const deleteWorkoutButton = workout.querySelector('button[onclick^="deleteWorkout"]');
-// 		deleteWorkoutButton.setAttribute('onclick', `deleteWorkout(${index + 1})`);
-// 	});
-// }
-
 // 세트 추가 기능
 function addSet(workoutId) {
 	const setList = document.getElementById(`set-list-${workoutId}`);
