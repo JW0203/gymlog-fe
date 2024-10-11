@@ -251,8 +251,6 @@ function injectAnalysisUI() {
 	renderWeek(selectedDate, workoutLogs);
 }
 
-
-// 운동 기록을 화면에 렌더링하는 함수
 function renderWorkoutRecords(workoutData, date) {
 	const recordsDiv = document.getElementById('exercise-records');
 	recordsDiv.innerHTML = `<h3>${date} 운동 기록</h3>`;
@@ -262,12 +260,14 @@ function renderWorkoutRecords(workoutData, date) {
 		return;
 	}
 
+	// 운동 기록을 렌더링하면서 체크박스 추가
 	workoutData.forEach(record => {
 		const recordDiv = document.createElement('div');
 		recordDiv.classList.add('workout-record');
 
-		// 운동 기록 표시 (예시로 구성, 받은 데이터 구조에 따라 수정)
+		// 운동 기록 표시 및 체크박스 추가
 		recordDiv.innerHTML = `
+            <input type="checkbox" class="delete-checkbox" data-id="${record.id}"> <!-- 체크박스 추가 -->
             <p><strong>부위:</strong> ${record.exercise.bodyPart}</p>
             <p><strong>운동이름:</strong> ${record.exercise.exerciseName}</p>
             <p><strong>세트 수:</strong> ${record.setCount}</p>
@@ -276,14 +276,61 @@ function renderWorkoutRecords(workoutData, date) {
             <p>---------------</p>
         `;
 
-		recordsDiv.appendChild(recordDiv);
+		recordsDiv.appendChild(recordDiv); // 기록을 화면에 추가
 	});
+
+	// 삭제 버튼 추가
+	const deleteButton = document.createElement('button');
+	deleteButton.textContent = '선택한 운동 삭제';
+	deleteButton.addEventListener('click', handleDeleteSelectedWorkouts);
+	recordsDiv.appendChild(deleteButton);
 }
 
-// CSS 파일을 동적으로 제거하는 함수
-// function removeStylesheet(href) {
-// 	const existingLink = document.querySelector(`link[href="${href}"]`);
-// 	if (existingLink) {
-// 		existingLink.remove();
+function handleDeleteSelectedWorkouts() {
+	// 체크된 체크박스에서 선택된 운동의 id 수집
+	const selectedCheckboxes = document.querySelectorAll('.delete-checkbox:checked');
+	const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.getAttribute('data-id'));
+
+	if (selectedIds.length > 0) {
+		deleteWorkout(selectedIds); // 선택된 id 리스트를 삭제 함수로 전달
+	} else {
+		alert('삭제할 운동을 선택하세요.');
+	}
+}
+
+function deleteWorkout(selectedIds) {
+	console.log(selectedIds);
+	// 선택된 운동의 id에 해당하는 운동 기록을 삭제
+	// workoutData = workoutData.filter(record => !selectedIds.includes(record.id));
+	//
+	// // 삭제 후, 기록을 다시 렌더링
+	// renderWorkoutRecords(workoutData, getCurrentSelectedDate());
+}
+
+// // 운동 기록을 화면에 렌더링하는 함수
+// function renderWorkoutRecords(workoutData, date) {
+// 	const recordsDiv = document.getElementById('exercise-records');
+// 	recordsDiv.innerHTML = `<h3>${date} 운동 기록</h3>`;
+//
+// 	if (workoutData.length === 0) {
+// 		recordsDiv.innerHTML += '<p>기록된 운동이 없습니다.</p>';
+// 		return;
 // 	}
+//
+// 	workoutData.forEach(record => {
+// 		const recordDiv = document.createElement('div');
+// 		recordDiv.classList.add('workout-record');
+//
+// 		// 운동 기록 표시 (예시로 구성, 받은 데이터 구조에 따라 수정)
+// 		recordDiv.innerHTML = `
+//             <p><strong>부위:</strong> ${record.exercise.bodyPart}</p>
+//             <p><strong>운동이름:</strong> ${record.exercise.exerciseName}</p>
+//             <p><strong>세트 수:</strong> ${record.setCount}</p>
+//             <p><strong>무게:</strong> ${record.weight} kg</p>
+//             <p><strong>반복 횟수:</strong> ${record.repeatCount} 회</p>
+//             <p>---------------</p>
+//         `;
+//
+// 		recordsDiv.appendChild(recordDiv);
+// 	});
 // }
