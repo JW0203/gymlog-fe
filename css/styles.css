@@ -185,85 +185,34 @@ footer {
     cursor: pointer;
 }
 
-/*body {*/
-/*    font-family: 'Arial', sans-serif;*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    min-height: 100vh;*/
-/*    background-color: white;*/
-/*    color: black;*/
-/*    text-align: center;*/
-/*}*/
+/* MyPage workout log 테이블 스타일 */
+.my-page-workout-logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
 
-/*header, footer {*/
-/*    background-color: #f0f0f0;*/
-/*    padding: 10px 20px;*/
-/*    text-align: center;*/
-/*    height: 40px;*/
-/*    position: fixed;*/
-/*    width: 100%;*/
-/*    z-index: 1000;*/
-/*}*/
+.my-page-workout-logs-table th, .my-page-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
 
-/*header {*/
-/*    top: 0;*/
-/*}*/
+.my-page-workout-logs-table th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
 
-/*footer {*/
-/*    bottom: 0;*/
-/*}*/
+.my-page-workout-logs-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
-/*main {*/
-/*    padding-top: 60px;*/
-/*    padding-bottom: 60px;*/
-/*    overflow: auto;*/
-/*    flex-grow: 1;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*    justify-content: center;*/
-/*}*/
+.my-page-workout-logs-table tr:hover {
+    background-color: #ddd;
+}
 
-/*.top-menu, .bottom-menu {*/
-/*    list-style: none;*/
-/*    padding: 0;*/
-/*    margin: 0;*/
-/*    display: flex;*/
-/*    justify-content: space-around;*/
-/*}*/
-
-/*.top-menu li, .bottom-menu li {*/
-/*    display: flex;*/
-/*}*/
-
-/*.top-menu a, .bottom-menu a {*/
-/*    text-decoration: none;*/
-/*    color: #333;*/
-/*    font-weight: bold;*/
-/*    padding: 8px 16px;*/
-/*    display: block;*/
-/*}*/
-
-/*!* 공통 입력 요소 스타일 *!*/
-/*select, input, button {*/
-/*    padding: 10px;*/
-/*    margin: 5px 0;*/
-/*    border-radius: 5px;*/
-/*    border: 1px solid #ccc;*/
-/*    font-size: 16px;*/
-/*}*/
-
-/*button {*/
-/*    background-color: #1E90FF;*/
-/*    color: white;*/
-/*    cursor: pointer;*/
-/*    border: none;*/
-/*}*/
-
-/*button:hover {*/
-/*    background-color: #4682B4;*/
-/*}*/
-
-/*!* 중복되는 스타일 제거 및 정리 *!*/
+.my-page-workout-logs-table td {
+    padding: 10px;
+    font-size: 14px;
+}

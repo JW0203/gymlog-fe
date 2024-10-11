@@ -155,7 +155,7 @@ function groupWorkoutDataByCategory(responseData) {
 // 운동 기록을 표로 변환
 function renderWorkoutLogsTable(groupedWorkoutLogs) {
     const table = document.createElement('table');
-    table.className = 'workout-logs-table';
+    table.className = 'my-page-workout-logs-table';
 
     // 테이블 헤더 추가
     const header = table.createTHead();
