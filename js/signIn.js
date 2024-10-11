@@ -1,5 +1,5 @@
 import {signUpForm} from "./signUp.js";
-import {clearContent, isAuthenticated, loadStylesheet} from "./common-functions.js";
+import {clearContent, isAuthenticated} from "./common-functions.js";
 import {apiUrl} from "./config.js";
 
 export function signIn() {
@@ -40,7 +40,7 @@ function loadSignInForm(contentDiv) {
 	contentDiv.appendChild(signInDiv);
 
 	// 스타일시트 로드
-	loadStylesheet('../css/styles-signIn.css');
+	// loadStylesheet('../css/styles-signIn.css');
 
 	// 이벤트 리스너 등록// 회원가입 버튼
 	document.getElementById('sign-in-form').addEventListener('submit',(event)=> handleSignInSubmit(event)); // 로그인 폼 제출

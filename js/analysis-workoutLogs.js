@@ -1,5 +1,5 @@
 import { signIn } from "./signIn.js";
-import { clearContent, isAuthenticated, loadStylesheet } from "./common-functions.js";
+import { clearContent, isAuthenticated } from "./common-functions.js";
 import {apiUrl} from "./config.js";
 
 
@@ -7,7 +7,7 @@ import {apiUrl} from "./config.js";
 document.addEventListener('DOMContentLoaded', function () {
 	// 운동 기록 분석 버튼 클릭 시 UI 주입 및 CSS 파일 추가
 	document.getElementById('analysis-workout-logs').addEventListener('click', async function () {
-		loadStylesheet('./css/styles-analysis-workoutlogs.css');  // CSS 파일 추가
+		// loadStylesheet('./css/styles-analysis-workoutlogs.css');  // CSS 파일 추가
 
 		if (isAuthenticated()) {
 			// 토큰이 있으면 운동 기록 분석 UI 주입
@@ -19,10 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	// 홈 버튼 클릭 시 스타일 제거 및 콘텐츠 초기화
-	document.getElementById('home').addEventListener('click', function () {
-		removeStylesheet('./css/styles-analysis-workoutlogs.css');  // CSS 파일 제거
-		document.getElementById('load-content').innerHTML = ''; // 콘텐츠 초기화
-	});
+	// document.getElementById('home').addEventListener('click', function () {
+	// 	// removeStylesheet('./css/styles-analysis-workoutlogs.css');  // CSS 파일 제거
+	// 	document.getElementById('load-content').innerHTML = ''; // 콘텐츠 초기화
+	// });
 });
 
 
@@ -184,7 +184,7 @@ function renderMonth(selectedDate){
 // 운동 기록 분석 UI를 주입하는 함수
 function injectAnalysisUI() {
 	const contentDiv = document.getElementById('load-content');
-
+	clearContent(contentDiv);
 	contentDiv.innerHTML = `
         <h2>운동 기록 분석</h2>
         <label for="view-select">보기 옵션:</label>
@@ -281,9 +281,9 @@ function renderWorkoutRecords(workoutData, date) {
 }
 
 // CSS 파일을 동적으로 제거하는 함수
-function removeStylesheet(href) {
-	const existingLink = document.querySelector(`link[href="${href}"]`);
-	if (existingLink) {
-		existingLink.remove();
-	}
-}
+// function removeStylesheet(href) {
+// 	const existingLink = document.querySelector(`link[href="${href}"]`);
+// 	if (existingLink) {
+// 		existingLink.remove();
+// 	}
+// }
