@@ -282,29 +282,46 @@ function renderWorkoutRecords(workoutData, date) {
 	// 삭제 버튼 추가
 	const deleteButton = document.createElement('button');
 	deleteButton.textContent = '선택한 운동 삭제';
-	deleteButton.addEventListener('click', handleDeleteSelectedWorkouts);
+	deleteButton.addEventListener('click', handleDeleteSelectedWorkouts(workoutData, date));
 	recordsDiv.appendChild(deleteButton);
 }
 
-function handleDeleteSelectedWorkouts() {
+function handleDeleteSelectedWorkouts(workoutData, date) {
 	// 체크된 체크박스에서 선택된 운동의 id 수집
 	const selectedCheckboxes = document.querySelectorAll('.delete-checkbox:checked');
 	const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.getAttribute('data-id'));
 
 	if (selectedIds.length > 0) {
-		deleteWorkout(selectedIds); // 선택된 id 리스트를 삭제 함수로 전달
+		deleteWorkout(selectedIds, workoutData, date);  // 선택된 id 리스트를 삭제 함수로 전달
 	} else {
 		alert('삭제할 운동을 선택하세요.');
 	}
 }
 
-function deleteWorkout(selectedIds) {
-	console.log(selectedIds);
-	// 선택된 운동의 id에 해당하는 운동 기록을 삭제
-	// workoutData = workoutData.filter(record => !selectedIds.includes(record.id));
-	//
-	// // 삭제 후, 기록을 다시 렌더링
-	// renderWorkoutRecords(workoutData, getCurrentSelectedDate());
+async function deleteWorkout(selectedIds, workoutData, date) {
+	try {
+		// 백엔드로 요청 보내기
+		const response = await fetch(`${apiUrl}/workout-logs}`, {
+			method: 'DELETE',
+			headers: {
+				'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,  // 인증 토큰 추가
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ids:selectedIds}),
+		});
+
+		if (!response.ok) {
+			const errorMessage = await response.json();
+			throw new Error(`운동 기록을 삭제하지 못했습니다: ${errorMessage.message || '알 수 없는 오류'}`);
+		}
+
+		const updatedData = workoutData.filter(record => !selectedIds.includes(record.id));
+		// 삭제 후, 기록을 다시 렌더링
+		renderWorkoutRecords(updatedData, date);
+	} catch (error) {
+		console.error('운동 기록 삭제 중 오류 발생:', error);
+		alert('운동 기록을 삭제하는 중 오류가 발생했습니다.');
+	}
 }
 
 // // 운동 기록을 화면에 렌더링하는 함수
