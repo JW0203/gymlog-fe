@@ -50,8 +50,6 @@ async function showUserInfo() {
             <p><strong>가입일:</strong> ${new Date(data.createdAt).toLocaleDateString()}</p>
             <p>-----------</p>
             <p><strong>운동기록:</strong></p>
-<!--            <pre>${JSON.stringify(groupedWorkoutLogs, null, 2)}</pre>-->
-<!--            <button id="delete-user-btn" class="delete-button">유저 삭제</button>-->
         `;
 
         const workoutTable = renderWorkoutLogsTable(groupedWorkoutLogs);
@@ -110,9 +108,6 @@ async function deleteAccount() {
         console.error('계정 삭제 중 에러가 발생했습니다.:', error);
     }
 }
-
-
-// groupWorkoutDataByCategory.js
 
 function groupWorkoutDataByCategory(responseData) {
     // 신체 부위별로 그룹화된 데이터를 저장할 객체
