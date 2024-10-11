@@ -1,230 +1,123 @@
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: white;
-    color: black;
-    text-align: center;
+/* 공통 스타일 */
+#load-content {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-header, footer {
-    background-color: #f0f0f0;
-    padding: 10px 20px;
-    text-align: center;
-    height: 40px;
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-}
-
-header {
-    top: 0;
-}
-
-footer {
-    bottom: 0;
-}
-
-main {
-    padding-top: 60px;
-    padding-bottom: 60px;
-    overflow: auto;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-select, input, button {
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    border: none;
-}
-
-button {
-    width: 80%;
-    background-color: #1E90FF;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #4682B4;
-}
-
-.top-menu, .bottom-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: space-around;
-}
-
-.top-menu li, .bottom-menu li {
-    display: flex;
-}
-
-.top-menu a, .bottom-menu a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-    padding: 8px 16px;
-    display: block;
-}
-
+/* 운동 기록 스타일 */
 .container-recording-workout-logs {
-    margin: 20px auto;
-    padding: 10px;
-    background-color: #f2f2f2;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-}
-
-.menu {
-    background-color: #333;
-    padding: 10px;
-    text-align: center;
-    color: white;
-    cursor: pointer;
-    margin-bottom: 20px;
-}
-
-.menu:hover {
-    background-color: #555;
-}
-
-/*#load-content {*/
-/*    background-color: #f9f9f9;*/
-/*    padding: 20px;*/
-/*    border-radius: 10px;*/
-/*}*/
-
-.set-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 10px 0;
-}
-
-.set-list li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #444;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    color: white;
-}
-
-.set-list li input {
-    width: 45px;
-    padding: 5px;
-    margin: 0 5px;
-    border-radius: 5px;
-    text-align: center;
-}
-
-.set-list li button {
-    background-color: #FF6347;
-    width: auto;
-    margin-left: 10px;
-}
-
-.inline-inputs {
-    display: flex;
-    justify-content: space-between;
-}
-
-.inline-inputs select {
-    width: 25%;
-}
-
-.inline-inputs input {
-    width: 70%;
-}
-
-.spacer {
-    width: 5%;
+    background-color: #f0f8ff;
+    padding: 15px;
+    border-radius: 8px;
 }
 
 .workout-container {
     margin-bottom: 20px;
-    background-color: #222;
     padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    color: white;
 }
 
-.workout-record {
-    margin-top: 20px;
-    background-color: #444;
-    padding: 10px;
-    border-radius: 5px;
-    display: none;
-    color: white;
+/* 루틴 스타일 */
+#routineForm {
+    background-color: #f0fff0;
+    padding: 15px;
+    border-radius: 8px;
 }
 
-/* 회원가입 폼 스타일 */
-#sign-up-form {
-    background-color: #f9f9f9;
+.exercise-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* 운동 기록 분석 스타일 */
+.calendar {
+    background-color: #fff0f5;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.week-grid, .month-grid {
+    display: grid;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.week-grid {
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.month-grid {
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.day {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* 마이 페이지 스타일 */
+.user-info-container {
+    background-color: #fffaf0;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* 로그인 스타일 */
+.login-container {
+    background-color: #f5f5f5;
+    padding: 20px;
     border-radius: 8px;
     max-width: 400px;
-    margin: 20px auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+/* 회원가입 스타일 */
+#sign-up-form {
+    background-color: #e6e6fa;
     padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-#sign-up-form h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+/* 에러 메시지 스타일 */
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
 }
 
-#sign-up-form form {
-    display: flex;
-    flex-direction: column;
-}
-
-#sign-up-form label {
-    margin-bottom: 8px;
-    color: #555;
-}
-
-#sign-up-form input {
-    padding: 10px;
-    margin-bottom: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#sign-up-form button[type="submit"] {
-    padding: 10px;
+/* 버튼 스타일 */
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
     background-color: #4CAF50;
     color: white;
-    border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
 }
 
-#sign-up-form button[type="submit"]:hover {
+button:hover {
     background-color: #45a049;
 }
 
-/* 오류 메시지 스타일 */
-.error-message {
-    color: blue;
-    font-size: 14px;
-    margin-bottom: 15px;
+/* 입력 필드 스타일 */
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
-
 
 /*body {*/
 /*    font-family: 'Arial', sans-serif;*/
@@ -232,31 +125,39 @@ button:hover {
 /*    padding: 0;*/
 /*    display: flex;*/
 /*    flex-direction: column;*/
-/*    min-height: 100vh; !* 전체 뷰포트 높이를 채우도록 설정 *!*/
+/*    min-height: 100vh;*/
+/*    background-color: white;*/
+/*    color: black;*/
+/*    text-align: center;*/
 /*}*/
 
 /*header, footer {*/
-/*    background-color: #f0f0f0; !* 밝은 회색 배경 *!*/
-/*    padding: 10px 20px; !* 패딩 설정 *!*/
+/*    background-color: #f0f0f0;*/
+/*    padding: 10px 20px;*/
 /*    text-align: center;*/
-/*    height: 40px; !* 메뉴 높이 설정 *!*/
+/*    height: 40px;*/
+/*    position: fixed;*/
+/*    width: 100%;*/
+/*    z-index: 1000;*/
 /*}*/
 
-/*select, input, button {*/
-/*    padding: 10px;*/
-/*    margin: 5px 0;*/
-/*    border-radius: 5px;*/
-/*    border: none;*/
+/*header {*/
+/*    top: 0;*/
 /*}*/
-/*button {*/
-/*    width: 80%;*/
-/*    background-color: #1E90FF;*/
-/*    color: white;*/
-/*    font-size: 16px;*/
-/*    cursor: pointer;*/
+
+/*footer {*/
+/*    bottom: 0;*/
 /*}*/
-/*button:hover {*/
-/*    background-color: #4682B4;*/
+
+/*main {*/
+/*    padding-top: 60px;*/
+/*    padding-bottom: 60px;*/
+/*    overflow: auto;*/
+/*    flex-grow: 1;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
 /*}*/
 
 /*.top-menu, .bottom-menu {*/
@@ -264,7 +165,7 @@ button:hover {
 /*    padding: 0;*/
 /*    margin: 0;*/
 /*    display: flex;*/
-/*    justify-content: space-around; !* 메뉴 아이템 간격을 균등하게 설정 *!*/
+/*    justify-content: space-around;*/
 /*}*/
 
 /*.top-menu li, .bottom-menu li {*/
@@ -273,237 +174,30 @@ button:hover {
 
 /*.top-menu a, .bottom-menu a {*/
 /*    text-decoration: none;*/
-/*    color: #333; !* 글자 색상 *!*/
+/*    color: #333;*/
 /*    font-weight: bold;*/
-/*    padding: 8px 16px; !* 클릭 영역 확장 *!*/
+/*    padding: 8px 16px;*/
 /*    display: block;*/
 /*}*/
 
-/*nav.top-menu ul, nav.bottom-menu ul {*/
-/*    list-style: none;*/
-/*    padding: 0;*/
-/*    margin: 0;*/
-/*    display: flex;*/
-/*    justify-content: space-around;*/
-/*}*/
-
-/*nav.top-menu a, nav.bottom-menu a {*/
-/*    text-decoration: none;*/
-/*    color: black;*/
-/*    font-weight: bold;*/
-/*}*/
-
-/*header {*/
-/*    position: fixed; !* 상단 고정 *!*/
-/*    top: 0;*/
-/*    width: 100%; !* 너비 전체 사용 *!*/
-/*    z-index: 1000; !* 다른 요소보다 위에 오도록 설정 *!*/
-/*}*/
-
-/*footer {*/
-/*    position: fixed; !* 하단 고정 *!*/
-/*    bottom: 0;*/
-/*    width: 100%; !* 너비 전체 사용 *!*/
-/*    z-index: 1000; !* 다른 요소보다 위에 오도록 설정 *!*/
-/*}*/
-
-/*main {*/
-/*    padding-top: 60px; !* 상단 메뉴 높이 + 여백 *!*/
-/*    padding-bottom: 60px; !* 하단 메뉴 높이 + 여백 *!*/
-/*    overflow: auto; !* 내용이 넘칠 경우 스크롤바 생성 *!*/
-/*    flex-grow: 1;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*    justify-content: center;*/
-/*}*/
-
-/*!*#calendar, #exercise-info {*!*/
-/*!*    width: 90%; !* 주요 내용 너비 설정 *!*!*/
-/*!*    margin: 20px auto; !* 중앙 정렬 *!*!*/
-/*!*    padding: 20px;*!*/
-/*!*    background-color: #fff; !* 배경색 설정 *!*!*/
-/*!*    box-shadow: 0 4px 8px rgba(0,0,0,0.1); !* 그림자 효과 *!*!*/
-/*!*    display: none; !* 기본적으로 숨김 *!*!*/
-/*!*}*!*/
-
-/*!*#exercise-info {*!*/
-/*!*    margin-top: 10px;*!*/
-/*!*}*!*/
-
-/*!*#calendar-controls {*!*/
-/*!*    display: flex;*!*/
-/*!*    justify-content: center;*!*/
-/*!*    align-items: center;*!*/
-/*!*    margin-bottom: 10px;*!*/
-/*!*}*!*/
-
-/*!*#calendar-controls button {*!*/
-/*!*    padding: 5px 10px;*!*/
-/*!*    margin: 0 5px;*!*/
-/*!*    background-color: #f0f0f0;*!*/
-/*!*    border: none;*!*/
-/*!*    cursor: pointer;*!*/
-/*!*}*!*/
-
-/*!*#calendar-controls span {*!*/
-/*!*    font-size: 16px;*!*/
-/*!*    font-weight: bold;*!*/
-/*!*}*!*/
-
-/*!* 운동 기록 스타일 *!*/
-/*body {*/
-/*    font-family: Arial, sans-serif;*/
-/*    background-color: white;*/
-/*    color: black;*/
-/*    text-align: center;*/
-/*}*/
-/*.container-recording-workout-logs {*/
-/*    margin: 20px auto;*/
-/*    padding: 10px;*/
-/*    background-color: #f2f2f2;*/
-/*    border-radius: 10px;*/
-/*    width: 90%;*/
-/*    max-width: 500px;*/
-/*}*/
+/*!* 공통 입력 요소 스타일 *!*/
 /*select, input, button {*/
 /*    padding: 10px;*/
 /*    margin: 5px 0;*/
 /*    border-radius: 5px;*/
-/*    border: none;*/
+/*    border: 1px solid #ccc;*/
+/*    font-size: 16px;*/
 /*}*/
+
 /*button {*/
-/*    width: 80%;*/
 /*    background-color: #1E90FF;*/
 /*    color: white;*/
-/*    font-size: 16px;*/
 /*    cursor: pointer;*/
+/*    border: none;*/
 /*}*/
+
 /*button:hover {*/
 /*    background-color: #4682B4;*/
 /*}*/
-/*.menu {*/
-/*    background-color: #333;*/
-/*    padding: 10px;*/
-/*    text-align: center;*/
-/*    color: white;*/
-/*    cursor: pointer;*/
-/*    margin-bottom: 20px;*/
-/*}*/
-/*.menu:hover {*/
-/*    background-color: #555;*/
-/*}*/
-/*#load-content {*/
-/*    background-color: #f9f9f9;*/
-/*    padding: 20px;*/
-/*    border-radius: 10px;*/
-/*}*/
-/*.set-list {*/
-/*    list-style-type: none;*/
-/*    padding: 0;*/
-/*    margin: 10px 0;*/
-/*}*/
-/*.set-list li {*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    justify-content: space-between;*/
-/*    background-color: #444;*/
-/*    padding: 10px;*/
-/*    margin: 5px 0;*/
-/*    border-radius: 5px;*/
-/*    color: white;*/
-/*}*/
-/*.set-list li input {*/
-/*    width: 45px;*/
-/*    padding: 5px;*/
-/*    margin: 0 5px;*/
-/*    border-radius: 5px;*/
-/*    text-align: center;*/
-/*}*/
-/*.set-list li button {*/
-/*    background-color: #FF6347;*/
-/*    width: auto;*/
-/*    margin-left: 10px;*/
-/*}*/
-/*.inline-inputs {*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*}*/
-/*.inline-inputs select {*/
-/*    width: 25%;*/
-/*}*/
-/*.inline-inputs input {*/
-/*    width: 70%;*/
-/*}*/
-/*.spacer {*/
-/*    width: 5%;*/
-/*}*/
-/*.workout-container {*/
-/*    margin-bottom: 20px;*/
-/*    background-color: #222;*/
-/*    padding: 10px;*/
-/*    border-radius: 5px;*/
-/*    color: white;*/
-/*}*/
-/*.workout-record {*/
-/*    margin-top: 20px;*/
-/*    background-color: #444;*/
-/*    padding: 10px;*/
-/*    border-radius: 5px;*/
-/*    display: none;*/
-/*    color: white;*/
-/*}*/
 
-/*!* 회원가입 폼 스타일 *!*/
-/*#sign-up-form {*/
-/*    background-color: #f9f9f9;*/
-/*    border-radius: 8px;*/
-/*    max-width: 400px;*/
-/*    margin: 20px auto;*/
-/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-/*    padding: 20px;*/
-/*}*/
-
-/*#sign-up-form h2 {*/
-/*    text-align: center;*/
-/*    margin-bottom: 20px;*/
-/*    color: #333;*/
-/*}*/
-
-/*#sign-up-form form {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*}*/
-
-/*#sign-up-form label {*/
-/*    margin-bottom: 8px;*/
-/*    color: #555;*/
-/*}*/
-
-/*#sign-up-form input {*/
-/*    padding: 10px;*/
-/*    margin-bottom: 5px;*/
-/*    border: 1px solid #ccc;*/
-/*    border-radius: 4px;*/
-/*}*/
-
-/*#sign-up-form button[type="submit"] {*/
-/*    padding: 10px;*/
-/*    background-color: #4CAF50;*/
-/*    color: white;*/
-/*    border: none;*/
-/*    border-radius: 4px;*/
-/*    cursor: pointer;*/
-/*    font-size: 16px;*/
-/*}*/
-
-/*#sign-up-form button[type="submit"]:hover {*/
-/*    background-color: #45a049;*/
-/*}*/
-
-/*!* 오류 메시지 스타일 (파란색) *!*/
-/*.error-message {*/
-/*    color: blue;  !* 파란색 *!*/
-/*    font-size: 14px;*/
-/*    margin-bottom: 15px;  !* 입력 필드와 다음 필드 사이에 여백 추가 *!*/
-/*}*/
+/*!* 중복되는 스타일 제거 및 정리 *!*/

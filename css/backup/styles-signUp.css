@@ -1,7 +1,6 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 40px;
-}
+/* 기존 스타일 유지 */
+
+/* body 스타일 제거 (styles.css에 이미 존재) */
 
 .container {
     width: 300px;

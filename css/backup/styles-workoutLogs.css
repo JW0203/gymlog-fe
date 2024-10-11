@@ -1,0 +1,20 @@
+.workout-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #7c7a7a;
+    border-radius: 10px;
+    color: #FFFFFF;
+}
+
+/* 나머지 기존 스타일 유지 */
+
+#set-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 버튼 스타일 제거 (styles.css에서 공통으로 정의) */
+
+/* 나머지 기존 스타일 유지 */
