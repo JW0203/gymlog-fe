@@ -114,30 +114,42 @@ async function deleteAccount() {
 
 // groupWorkoutDataByCategory.js
 
-export function groupWorkoutDataByCategory (responseData)  {
+function groupWorkoutDataByCategory(responseData) {
     // 신체 부위별로 그룹화된 데이터를 저장할 객체
     const groupedData = {};
 
     // 신체 부위별로 데이터를 순회하여 연도별 및 월별 데이터를 그룹화
     responseData.uniqueBodyParts.forEach((bodyPart) => {
-        groupedData[bodyPart] = {
-            year: {},
-            month: {}
-        };
+        groupedData[bodyPart] = {};
 
-        // 연도별 데이터 그룹화
+        // 연도별 및 월별 데이터 결합하여 그룹화
         Object.keys(responseData.aggregatedData.year).forEach((year) => {
-            const exercises = responseData.aggregatedData.year[year][bodyPart];
-            if (exercises) {
-                groupedData[bodyPart].year[year] = exercises;
+            const exercisesInYear = responseData.aggregatedData.year[year][bodyPart];
+            if (exercisesInYear) {
+                Object.keys(exercisesInYear).forEach((exerciseName) => {
+                    if (!groupedData[bodyPart][exerciseName]) {
+                        groupedData[bodyPart][exerciseName] = {};
+                    }
+                    groupedData[bodyPart][exerciseName][year] = {
+                        sets: exercisesInYear[exerciseName],
+                        months: {}
+                    };
+                });
             }
         });
 
-        // 월별 데이터 그룹화
+        // 월별 데이터 그룹화하여 연도와 결합
         Object.keys(responseData.aggregatedData.month).forEach((month) => {
-            const exercises = responseData.aggregatedData.month[month][bodyPart];
-            if (exercises) {
-                groupedData[bodyPart].month[month] = exercises;
+            const exercisesInMonth = responseData.aggregatedData.month[month][bodyPart];
+            if (exercisesInMonth) {
+                Object.keys(exercisesInMonth).forEach((exerciseName) => {
+                    // 연도와 월을 결합하여 저장
+                    Object.keys(groupedData[bodyPart][exerciseName] || {}).forEach((year) => {
+                        if (groupedData[bodyPart][exerciseName][year]) {
+                            groupedData[bodyPart][exerciseName][year].months[month] = exercisesInMonth[exerciseName];
+                        }
+                    });
+                });
             }
         });
     });
@@ -166,41 +178,41 @@ function renderWorkoutLogsTable(groupedWorkoutLogs) {
 
     // 신체 부위별로 데이터 순회
     Object.keys(groupedWorkoutLogs).forEach((bodyPart) => {
-        const bodyPartData = groupedWorkoutLogs[bodyPart];
+        const exercises = groupedWorkoutLogs[bodyPart];
 
-        // 연도별 데이터 순회
-        Object.keys(bodyPartData.year).forEach((year) => {
-            const yearData = bodyPartData.year[year];
+        // 운동별로 순회
+        Object.keys(exercises).forEach((exerciseName) => {
+            const years = exercises[exerciseName];
 
-            // 각 운동 기록 순회
-            Object.keys(yearData).forEach((exerciseName) => {
-                const sets = yearData[exerciseName];
-                const row = tbody.insertRow();
-                row.innerHTML = `
-                    <td>${year}</td>
-                    <td>-</td> <!-- 연도 데이터만 있는 경우 월은 빈칸 처리 -->
-                    <td>${bodyPart}</td>
-                    <td>${exerciseName}</td>
-                    <td>${sets.join(', ')}</td> <!-- 세트/횟수를 콤마로 구분하여 표시 -->
-                `;
-            });
-        });
+            // 연도별로 순회
+            Object.keys(years).forEach((year) => {
+                const yearData = years[year];
+                const sets = yearData.sets;
 
-        // 월별 데이터 순회
-        Object.keys(bodyPartData.month).forEach((month) => {
-            const monthData = bodyPartData.month[month];
-
-            // 각 운동 기록 순회
-            Object.keys(monthData).forEach((exerciseName) => {
-                const sets = monthData[exerciseName];
-                const row = tbody.insertRow();
-                row.innerHTML = `
-                    <td>-</td> <!-- 월별 데이터만 있는 경우 연도는 빈칸 처리 -->
-                    <td>${month}</td>
-                    <td>${bodyPart}</td>
-                    <td>${exerciseName}</td>
-                    <td>${sets.join(', ')}</td> <!-- 세트/횟수를 콤마로 구분하여 표시 -->
-                `;
+                // 월별 데이터가 있는 경우, 연도와 함께 출력
+                if (Object.keys(yearData.months).length > 0) {
+                    Object.keys(yearData.months).forEach((month) => {
+                        const monthSets = yearData.months[month];
+                        const row = tbody.insertRow();
+                        row.innerHTML = `
+                            <td>${year}</td>
+                            <td>${month}</td>
+                            <td>${bodyPart}</td>
+                            <td>${exerciseName}</td>
+                            <td>${monthSets.join(', ')}</td> <!-- 월별 세트 표시 -->
+                        `;
+                    });
+                } else {
+                    // 월 데이터가 없을 경우 연도만 표시
+                    const row = tbody.insertRow();
+                    row.innerHTML = `
+                        <td>${year}</td>
+                        <td>-</td> <!-- 월 데이터가 없을 경우 -->
+                        <td>${bodyPart}</td>
+                        <td>${exerciseName}</td>
+                        <td>${sets.join(', ')}</td> <!-- 세트/횟수 표시 -->
+                    `;
+                }
             });
         });
     });
