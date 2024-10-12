@@ -316,8 +316,10 @@ async function deleteWorkout(selectedIds, workoutData, date) {
 		}
 
 		const updatedData = workoutData.filter(record => !selectedIds.includes(record.id));
+		console.log(updatedData);
 		// 삭제 후, 기록을 다시 렌더링
-		renderWorkoutRecords(updatedData, date);
+		await renderWorkoutRecords(updatedData, date);
+
 	} catch (error) {
 		console.error('운동 기록 삭제 중 오류 발생:', error);
 		alert('운동 기록을 삭제하는 중 오류가 발생했습니다.');
