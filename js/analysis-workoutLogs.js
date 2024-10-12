@@ -289,7 +289,7 @@ function renderWorkoutRecords(workoutData, date) {
 async function handleDeleteSelectedWorkouts(workoutData, date) {
 	// 체크된 체크박스에서 선택된 운동의 id 수집
 	const selectedCheckboxes = document.querySelectorAll('.delete-checkbox:checked');
-	const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.getAttribute('data-id'));
+	const selectedIds = Array.from(selectedCheckboxes).map(checkbox => parseInt(checkbox.getAttribute('data-id'), 10));
 
 	if (selectedIds.length > 0) {
 		await deleteWorkout(selectedIds, workoutData, date);  // 선택된 id 리스트를 삭제 함수로 전달
