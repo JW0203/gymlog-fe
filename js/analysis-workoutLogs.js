@@ -282,17 +282,17 @@ function renderWorkoutRecords(workoutData, date) {
 	// 삭제 버튼 추가
 	const deleteButton = document.createElement('button');
 	deleteButton.textContent = '선택한 운동 삭제';
-	deleteButton.addEventListener('click', handleDeleteSelectedWorkouts(workoutData, date));
+	deleteButton.addEventListener('click', async () => handleDeleteSelectedWorkouts(workoutData, date));
 	recordsDiv.appendChild(deleteButton);
 }
 
-function handleDeleteSelectedWorkouts(workoutData, date) {
+async function handleDeleteSelectedWorkouts(workoutData, date) {
 	// 체크된 체크박스에서 선택된 운동의 id 수집
 	const selectedCheckboxes = document.querySelectorAll('.delete-checkbox:checked');
 	const selectedIds = Array.from(selectedCheckboxes).map(checkbox => checkbox.getAttribute('data-id'));
 
 	if (selectedIds.length > 0) {
-		deleteWorkout(selectedIds, workoutData, date);  // 선택된 id 리스트를 삭제 함수로 전달
+		await deleteWorkout(selectedIds, workoutData, date);  // 선택된 id 리스트를 삭제 함수로 전달
 	} else {
 		alert('삭제할 운동을 선택하세요.');
 	}
