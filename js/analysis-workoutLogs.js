@@ -18,11 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	});
 
-	// 홈 버튼 클릭 시 스타일 제거 및 콘텐츠 초기화
-	// document.getElementById('home').addEventListener('click', function () {
-	// 	// removeStylesheet('./css/styles-analysis-workoutlogs.css');  // CSS 파일 제거
-	// 	document.getElementById('load-content').innerHTML = ''; // 콘텐츠 초기화
-	// });
 });
 
 
@@ -280,10 +275,18 @@ function renderWorkoutRecords(workoutData, date) {
 	});
 
 	// 삭제 버튼 추가
-	const deleteButton = document.createElement('button');
-	deleteButton.textContent = '선택한 운동 삭제';
-	deleteButton.addEventListener('click', async () => handleDeleteSelectedWorkouts(workoutData, date));
-	recordsDiv.appendChild(deleteButton);
+	let deleteButton = document.getElementById('delete-workout-button');
+	if (!deleteButton) {
+		deleteButton = document.createElement('button');
+		deleteButton.id = 'delete-workout-button';
+		deleteButton.textContent = '선택한 운동 삭제';
+		deleteButton.addEventListener('click', async () => handleDeleteSelectedWorkouts(workoutData, date));
+		recordsDiv.appendChild(deleteButton);
+	}
+	// const deleteButton = document.createElement('button');
+	// deleteButton.textContent = '선택한 운동 삭제';
+	// deleteButton.addEventListener('click', async () => handleDeleteSelectedWorkouts(workoutData, date));
+	// recordsDiv.appendChild(deleteButton);
 }
 
 async function handleDeleteSelectedWorkouts(workoutData, date) {
@@ -303,6 +306,34 @@ async function deleteWorkout(selectedIds, workoutData, date) {
 		// 백엔드로 요청 보내기
 		const response = await fetch(`${apiUrl}/workout-logs`, {
 			method: 'DELETE',
+			headers: {
+				'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,  // 인증 토큰 추가
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ids:selectedIds}),
+		});
+
+		if (!response.ok) {
+			const errorMessage = await response.json();
+			throw new Error(`운동 기록을 삭제하지 못했습니다: ${errorMessage.message || '알 수 없는 오류'}`);
+		}
+
+		const updatedData = workoutData.filter(record => !selectedIds.includes(record.id));
+		console.log(updatedData);
+		// 삭제 후, 기록을 다시 렌더링
+		await renderWorkoutRecords(updatedData, date);
+
+	} catch (error) {
+		console.error('운동 기록 삭제 중 오류 발생:', error);
+		alert('운동 기록을 삭제하는 중 오류가 발생했습니다.');
+	}
+}
+
+async function updateWorkout(selectedIds, workoutData, date) {
+	try {
+		// 백엔드로 요청 보내기
+		const response = await fetch(`${apiUrl}/workout-logs`, {
+			method: 'PATCH',
 			headers: {
 				'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,  // 인증 토큰 추가
 				'Content-Type': 'application/json',
