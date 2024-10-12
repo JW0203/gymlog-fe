@@ -301,7 +301,7 @@ async function handleDeleteSelectedWorkouts(workoutData, date) {
 async function deleteWorkout(selectedIds, workoutData, date) {
 	try {
 		// 백엔드로 요청 보내기
-		const response = await fetch(`${apiUrl}/workout-logs}`, {
+		const response = await fetch(`${apiUrl}/workout-logs`, {
 			method: 'DELETE',
 			headers: {
 				'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,  // 인증 토큰 추가
@@ -323,31 +323,3 @@ async function deleteWorkout(selectedIds, workoutData, date) {
 		alert('운동 기록을 삭제하는 중 오류가 발생했습니다.');
 	}
 }
-
-// // 운동 기록을 화면에 렌더링하는 함수
-// function renderWorkoutRecords(workoutData, date) {
-// 	const recordsDiv = document.getElementById('exercise-records');
-// 	recordsDiv.innerHTML = `<h3>${date} 운동 기록</h3>`;
-//
-// 	if (workoutData.length === 0) {
-// 		recordsDiv.innerHTML += '<p>기록된 운동이 없습니다.</p>';
-// 		return;
-// 	}
-//
-// 	workoutData.forEach(record => {
-// 		const recordDiv = document.createElement('div');
-// 		recordDiv.classList.add('workout-record');
-//
-// 		// 운동 기록 표시 (예시로 구성, 받은 데이터 구조에 따라 수정)
-// 		recordDiv.innerHTML = `
-//             <p><strong>부위:</strong> ${record.exercise.bodyPart}</p>
-//             <p><strong>운동이름:</strong> ${record.exercise.exerciseName}</p>
-//             <p><strong>세트 수:</strong> ${record.setCount}</p>
-//             <p><strong>무게:</strong> ${record.weight} kg</p>
-//             <p><strong>반복 횟수:</strong> ${record.repeatCount} 회</p>
-//             <p>---------------</p>
-//         `;
-//
-// 		recordsDiv.appendChild(recordDiv);
-// 	});
-// }
