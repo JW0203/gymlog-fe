@@ -288,18 +288,59 @@ function renderWorkoutRecords(workoutData, date) {
 		recordsDiv.appendChild(deleteButton);
 	}
 
-	// 업데이트 버튼 추가
-	let updateButton = document.getElementById('update-workout-button');
-	if (!updateButton) {
-		updateButton = document.createElement('button');
-		updateButton.id = 'update-workout-button';
-		updateButton.textContent = '선택한 운동 업데이트';
-		updateButton.addEventListener('click', async () => {
-			if (confirm('정말로 선택한 운동을 업데이트하시겠습니까?')) {
-				await handleUpdateSelectedWorkouts(workoutData, date);
+	// // 업데이트 버튼 추가
+	// let updateButton = document.getElementById('update-workout-button');
+	// if (!updateButton) {
+	// 	updateButton = document.createElement('button');
+	// 	updateButton.id = 'update-workout-button';
+	// 	updateButton.textContent = '선택한 운동 업데이트';
+	// 	updateButton.addEventListener('click', async () => {
+	// 		if (confirm('정말로 선택한 운동을 업데이트하시겠습니까?')) {
+	// 			await handleUpdateSelectedWorkouts(workoutData, date);
+	// 		}
+	// 	});
+	// 	recordsDiv.appendChild(updateButton);
+	// }
+	// 수정 버튼 추가
+	let editButton = document.getElementById('edit-workout-button');
+	if (!editButton) {
+		editButton = document.createElement('button');
+		editButton.id = 'edit-workout-button';
+		editButton.textContent = '선택한 운동 수정';
+		editButton.addEventListener('click', () => {
+			const selectedCheckboxes = document.querySelectorAll('.edit-checkbox:checked');
+			selectedCheckboxes.forEach(checkbox => {
+				const recordDiv = checkbox.closest('.workout-record');
+				recordDiv.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => input.disabled = false);
+			});
+
+			// 저장 버튼 및 수정 취소 버튼 추가
+			let saveButton = document.getElementById('save-workout-button');
+			if (!saveButton) {
+				saveButton = document.createElement('button');
+				saveButton.id = 'save-workout-button';
+				saveButton.textContent = '저장';
+				saveButton.addEventListener('click', async () => {
+					await handleUpdateSelectedWorkouts(workoutData, date);
+				});
+				recordsDiv.appendChild(saveButton);
+			}
+
+			let cancelButton = document.getElementById('cancel-edit-workout-button');
+			if (!cancelButton) {
+				cancelButton = document.createElement('button');
+				cancelButton.id = 'cancel-edit-workout-button';
+				cancelButton.textContent = '수정 취소';
+				cancelButton.addEventListener('click', () => {
+					selectedCheckboxes.forEach(checkbox => {
+						const recordDiv = checkbox.closest('.workout-record');
+						recordDiv.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => input.disabled = true);
+					});
+				});
+				recordsDiv.appendChild(cancelButton);
 			}
 		});
-		recordsDiv.appendChild(updateButton);
+		recordsDiv.appendChild(editButton);
 	}
 }
 
@@ -316,9 +357,25 @@ async function handleDeleteSelectedWorkouts(workoutData, date) {
 }
 
 async function handleUpdateSelectedWorkouts(workoutData, date) {
-	const selectedCheckboxes = document.querySelectorAll('.delete-checkbox:checked');
+	// const selectedCheckboxes = document.querySelectorAll('.delete-checkbox:checked');
+	// const selectedIds = Array.from(selectedCheckboxes).map(checkbox => parseInt(checkbox.getAttribute('data-id'), 10));
+	// const updateData = workoutData.filter(record => selectedIds.includes(record.id));
+	// await updateWorkout(updateData, workoutData, date);
+	const selectedCheckboxes = document.querySelectorAll('.edit-checkbox:checked');
 	const selectedIds = Array.from(selectedCheckboxes).map(checkbox => parseInt(checkbox.getAttribute('data-id'), 10));
-	const updateData = workoutData.filter(record => selectedIds.includes(record.id));
+	const updateData = workoutData.filter(record => selectedIds.includes(record.id)).map(record => {
+		const recordDiv = document.querySelector(`.workout-record[data-id="${record.id}"]`);
+		return {
+			...record,
+			setCount: parseInt(recordDiv.querySelector('.edit-setCount').value, 10),
+			weight: parseFloat(recordDiv.querySelector('.edit-weight').value),
+			repeatCount: parseInt(recordDiv.querySelector('.edit-repeatCount').value, 10),
+			exercise: {
+				bodyPart: recordDiv.querySelector('.edit-bodyPart').value,
+				exerciseName: recordDiv.querySelector('.edit-exerciseName').value
+			}
+		};
+	});
 	await updateWorkout(updateData, workoutData, date);
 }
 
