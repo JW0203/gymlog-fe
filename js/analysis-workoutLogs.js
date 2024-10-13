@@ -260,14 +260,29 @@ function renderWorkoutRecords(workoutData, date) {
 		const recordDiv = document.createElement('div');
 		recordDiv.classList.add('workout-record');
 
-		// 운동 기록 표시 및 체크박스 추가
+		// // 운동 기록 표시 및 체크박스 추가
+		// recordDiv.innerHTML = `
+        //     <input type="checkbox" class="delete-checkbox" data-id="${record.id}"> <!-- 체크박스 추가 -->
+        //     <p><strong>부위:</strong> ${record.exercise.bodyPart}</p>
+        //     <p><strong>운동이름:</strong> ${record.exercise.exerciseName}</p>
+        //     <p><strong>세트 수:</strong> ${record.setCount}</p>
+        //     <p><strong>무게:</strong> ${record.weight} kg</p>
+        //     <p><strong>반복 횟수:</strong> ${record.repeatCount} 회</p>
+        //     <p>---------------</p>
+        // `;
+
+
+		// 운동 기록 표시 및 수정, 삭제 체크박스 추가
 		recordDiv.innerHTML = `
-            <input type="checkbox" class="delete-checkbox" data-id="${record.id}"> <!-- 체크박스 추가 -->
-            <p><strong>부위:</strong> ${record.exercise.bodyPart}</p>
-            <p><strong>운동이름:</strong> ${record.exercise.exerciseName}</p>
-            <p><strong>세트 수:</strong> ${record.setCount}</p>
-            <p><strong>무게:</strong> ${record.weight} kg</p>
-            <p><strong>반복 횟수:</strong> ${record.repeatCount} 회</p>
+            <div>
+                <input type="checkbox" class="edit-checkbox" data-id="${record.id}"> <!-- 수정 체크박스 추가 --> 수정
+                <input type="checkbox" class="delete-checkbox" data-id="${record.id}"> <!-- 삭제 체크박스 추가 --> 삭제
+            </div>
+            <p><strong>부위:</strong> <input type="text" value="${record.exercise.bodyPart}" class="edit-bodyPart" disabled></p>
+            <p><strong>운동이름:</strong> <input type="text" value="${record.exercise.exerciseName}" class="edit-exerciseName" disabled></p>
+            <p><strong>세트 수:</strong> <input type="number" value="${record.setCount}" class="edit-setCount" disabled></p>
+            <p><strong>무게:</strong> <input type="number" value="${record.weight}" class="edit-weight" disabled> kg</p>
+            <p><strong>반복 횟수:</strong> <input type="number" value="${record.repeatCount}" class="edit-repeatCount" disabled> 회</p>
             <p>---------------</p>
         `;
 
