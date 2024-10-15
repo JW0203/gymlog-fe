@@ -281,7 +281,7 @@ async function updateRoutine() {
 		updateData: updatedExercises,
 		exercises
 	};
-
+	console.log(requestData)
 	try{
 		const response = await fetch(`${apiUrl}/routines`, {
 			method: 'PATCH',
