@@ -193,6 +193,23 @@ async function getAllRoutines(apiUrl) {
 	}
 }
 
+async function updateRoutine() {
+	console.log("send request for updating routine")
+	// try{
+	// 	const response = await fetch(`${apiUrl}/routines/all`, {
+	// 		method: 'PATCH',
+	// 		headers: {
+	// 			'Content-Type': 'application/json',
+	// 			'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+	// 		},
+	// 		body: JSON.stringify({})
+	// 	});
+	//
+	// }catch(error){
+	//
+	// }
+}
+
 // 선택된 루틴 정보를 폼에 채우는 함수
 function fillRoutineForm(routine) {
 	document.getElementById('routine-name').value = routine.name;
@@ -203,23 +220,64 @@ function fillRoutineForm(routine) {
 		const exerciseItem = document.createElement('div');
 		exerciseItem.className = 'exercise-item';
 		exerciseItem.innerHTML = `
-            <label for="body-part">부위 선택:</label>
-            <select id="body-part" name="body-part">
-                <option value="Chest" ${exercise.bodyPart === 'Chest' ? 'selected' : ''}>가슴</option>
-                <option value="Abs" ${exercise.bodyPart === 'Abs' ? 'selected' : ''}>배</option>
-                <option value="Shoulders" ${exercise.bodyPart === 'Shoulders' ? 'selected' : ''}>어깨</option>
-                <option value="Back" ${exercise.bodyPart === 'Back' ? 'selected' : ''}>등</option>
-                <option value="Legs" ${exercise.bodyPart === 'Legs' ? 'selected' : ''}>하체</option>
-                <option value="ARM" ${exercise.bodyPart === 'ARM' ? 'selected' : ''}>팔</option>
+            <label for="body-part">Select Body Part:</label>
+            <select id="body-part" name="body-part" disabled>
+                <option value="Back" ${exercise.bodyPart === 'Back' ? 'selected' : ''}>Back</option>
+                <option value="Chest" ${exercise.bodyPart === 'Chest' ? 'selected' : ''}>Chest</option>
+                <option value="Legs" ${exercise.bodyPart === 'Legs' ? 'selected' : ''}>Legs</option>
+                <option value="Arm" ${exercise.bodyPart === 'Arm' ? 'selected' : ''}>Arm</option>
+                <option value="Shoulders" ${exercise.bodyPart === 'Shoulders' ? 'selected' : ''}>Shoulders</option>
+                <option value="Abs" ${exercise.bodyPart === 'Abs' ? 'selected' : ''}>Abs</option>
             </select>
-
-            <label for="exercise-name">운동 이름:</label>
-            <input type="text" name="exercise-name" value="${exercise.exerciseName}" required placeholder="운동 이름 입력">
-            <button type="button" class="remove-exercise">운동 삭제</button>
+            <label for="exercise-name">Exercise Name:</label>
+            <input type="text" name="exercise-name" value="${exercise.exerciseName}" required placeholder="Enter exercise name" readonly>
+            <input type="hidden" name="exercise-id" value="${exercise.id}">
         `;
 		exerciseContainer.appendChild(exerciseItem);
 	});
+	const editButton = document.createElement('button');
+	editButton.type = 'button';
+	editButton.id = 'edit-routine';
+	editButton.className = 'edit-button';
+	editButton.textContent = 'Edit Routine';
+	exerciseContainer.appendChild(editButton);
+
+	editButton.addEventListener('click', function () {
+		enableRoutineEditing();
+	});
+	const updateButton = document.createElement('button');
+	updateButton.type = 'button';
+	updateButton.id = 'update-routine';
+	updateButton.textContent = 'Update Routine';
+	exerciseContainer.appendChild(updateButton);
+
+	updateButton.addEventListener('click', async function () {
+		await updateRoutine();
+	});
 }
+
+// Function to enable routine editing
+function enableRoutineEditing() {
+	document.getElementById('routine-name').removeAttribute('readonly');
+	const exerciseItems = document.querySelectorAll('#exercise-container .exercise-item');
+	exerciseItems.forEach(item => {
+		item.querySelector('select[name="body-part"]').removeAttribute('disabled');
+		item.querySelector('input[name="exercise-name"]').removeAttribute('readonly');
+	});
+	document.getElementById('edit-routine').style.display = 'none';
+	document.getElementById('save-routine').style.display = 'none';
+
+	const updateButton = document.createElement('button');
+	updateButton.type = 'button';
+	updateButton.id = 'update-routine';
+	updateButton.textContent = 'Update Routine';
+	document.getElementById('routineForm').appendChild(updateRoutine);
+
+	updateButton.addEventListener('click', async function () {
+		await updateRoutine();
+	});
+}
+
 
 // 루틴 폼을 초기화하는 함수 (루틴 선택 취소 시)
 function clearRoutineForm() {
