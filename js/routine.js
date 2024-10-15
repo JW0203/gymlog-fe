@@ -253,19 +253,53 @@ async function getAllRoutines(apiUrl) {
 
 async function updateRoutine() {
 	console.log("send request for updating routine")
-	// try{
-	// 	const response = await fetch(`${apiUrl}/routines/all`, {
-	// 		method: 'PATCH',
-	// 		headers: {
-	// 			'Content-Type': 'application/json',
-	// 			'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-	// 		},
-	// 		body: JSON.stringify({})
-	// 	});
-	//
-	// }catch(error){
-	//
-	// }
+	const routineName = document.getElementById('routine-name').value;
+	// 수정된 운동 목록 가져오기
+	const exerciseItems = document.querySelectorAll('.exercise-item');
+
+	const exercisesMap = new Map();
+	const updatedExercises = [];
+	exerciseItems.forEach((exerciseItem) => {
+		const bodyPart = exerciseItem.querySelector('[name="body-part"]').value;
+		const exerciseName = exerciseItem.querySelector('[name="exercise-name"]').value;
+		const exerciseId = exerciseItem.querySelector('[name="exercise-id"]').value;
+
+		updatedExercises.push({
+			id: exerciseId,
+			bodyPart: bodyPart,
+			exerciseName: exerciseName,
+		});
+		if (!exercisesMap.has(exerciseName)) {
+			exercisesMap.set(exerciseName, bodyPart);
+		}
+	});
+
+	// 요청 데이터 생성
+	const exercises = Array.from(exercisesMap, ([exerciseName, bodyPart]) => ({ exerciseName, bodyPart }));
+	const requestData = {
+		routineName: routineName,
+		updateData: updatedExercises,
+		exercises
+	};
+
+	try{
+		const response = await fetch(`${apiUrl}/routines/all`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+			},
+			body: JSON.stringify(requestData)
+		});
+
+		if(!response.ok) {
+			const errorMessage = await response.json();
+			throw new Error(errorMessage)
+		}
+	}catch(error){
+		console.error('루틴 저장 중 오류 발생:', error);
+		alert('루틴 저장에 실패했습니다.');
+	}
 }
 
 // 선택된 루틴 정보를 폼에 채우는 함수
