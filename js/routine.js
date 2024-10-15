@@ -253,8 +253,8 @@ async function getAllRoutines(apiUrl) {
 
 async function updateRoutine() {
 	console.log("send request for updating routine")
-	const routineName = document.getElementById('routine-name').value;
 	// 수정된 운동 목록 가져오기
+	const routineName = String(document.getElementById('routine-name').value);
 	const exerciseItems = document.querySelectorAll('.exercise-item');
 
 	const exercisesMap = new Map();
@@ -262,10 +262,10 @@ async function updateRoutine() {
 	exerciseItems.forEach((exerciseItem) => {
 		const bodyPart = exerciseItem.querySelector('[name="body-part"]').value;
 		const exerciseName = exerciseItem.querySelector('[name="exercise-name"]').value;
-		const exerciseId = exerciseItem.querySelector('[name="exercise-id"]').value;
+		const routineId = parseInt(exerciseItem.querySelector('[name="routine-id"]').value, 10);
 
 		updatedExercises.push({
-			id: exerciseId,
+			id:routineId,
 			bodyPart: bodyPart,
 			exerciseName: exerciseName,
 		});
@@ -323,7 +323,7 @@ function fillRoutineForm(routine) {
             </select>
             <label for="exercise-name">Exercise Name:</label>
             <input type="text" name="exercise-name" value="${exercise.exerciseName}" required placeholder="Enter exercise name" readonly>
-            <input type="hidden" name="exercise-id" value="${exercise.id}">
+            <input type="hidden" name="routine-id" value="${exercise.id}">
         `;
 		exerciseContainer.appendChild(exerciseItem);
 	});
