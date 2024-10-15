@@ -239,7 +239,7 @@ function fillRoutineForm(routine) {
 	editButton.type = 'button';
 	editButton.id = 'edit-routine';
 	editButton.className = 'edit-button';
-	editButton.textContent = 'Edit Routine';
+	editButton.textContent = '수정';
 	exerciseContainer.appendChild(editButton);
 
 	editButton.addEventListener('click', function () {
@@ -248,7 +248,8 @@ function fillRoutineForm(routine) {
 	const updateButton = document.createElement('button');
 	updateButton.type = 'button';
 	updateButton.id = 'update-routine';
-	updateButton.textContent = 'Update Routine';
+	updateButton.textContent = '수정한 내용 저장';
+	updateButton.style.display = 'none';
 	exerciseContainer.appendChild(updateButton);
 
 	updateButton.addEventListener('click', async function () {
@@ -265,17 +266,18 @@ function enableRoutineEditing() {
 		item.querySelector('input[name="exercise-name"]').removeAttribute('readonly');
 	});
 	document.getElementById('edit-routine').style.display = 'none';
-	document.getElementById('save-routine').style.display = 'none';
+	// document.getElementById('save-routine').style.display = 'none';
+	document.getElementById('update-routine').style.display = 'inline';
 
-	const updateButton = document.createElement('button');
-	updateButton.type = 'button';
-	updateButton.id = 'update-routine';
-	updateButton.textContent = 'Update Routine';
-	document.getElementById('routineForm').appendChild(updateRoutine);
-
-	updateButton.addEventListener('click', async function () {
-		await updateRoutine();
-	});
+	// const updateButton = document.createElement('button');
+	// updateButton.type = 'button';
+	// updateButton.id = 'update-routine';
+	// updateButton.textContent = '루틴 업데이트';
+	// document.getElementById('routineForm').appendChild(updateRoutine);
+	//
+	// updateButton.addEventListener('click', async function () {
+	// 	await updateRoutine();
+	// });
 }
 
 
