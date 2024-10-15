@@ -102,69 +102,127 @@ async function loadRoutineForm() {
 	});
 
 	// 루틴 저장 시 유효성 검사 및 데이터 전송
-	const form = document.getElementById('routineForm');
-	form.addEventListener('submit', async function (event) {
-		event.preventDefault(); // 기본 폼 제출 방지
+	await saveRoutine()
+	// const form = document.getElementById('routineForm');
+	// form.addEventListener('submit', async function (event) {
+	// 	event.preventDefault(); // 기본 폼 제출 방지
+	//
+	// 	const routineName = document.getElementById('routine-name').value;
+	// 	const routineNameError = document.getElementById('routine-name-error');
+	// 	if (routineName.trim() === "") {
+	// 		routineNameError.textContent = '루틴 이름을 입력하세요.';
+	// 		return;
+	// 	} else {
+	// 		routineNameError.textContent = '';
+	// 	}
+	//
+	// 	const exerciseNames = document.querySelectorAll('[name="exercise-name"]');
+	// 	const bodyParts = document.querySelectorAll('[name="body-part"]');
+	//
+	// 	const routines = [];
+	// 	const exercises = []
+	// 	exerciseNames.forEach((exerciseName, index) => {
+	// 		routines.push({
+	// 			routineName: routineName,
+	// 			bodyPart: bodyParts[index].value,
+	// 			exerciseName: exerciseName.value
+	// 		});
+	// 		exercises.push({
+	// 			bodyPart: bodyParts[index].value,
+	// 			exerciseName: exerciseName.value
+	// 		})
+	// 	});
+	//
+	// 	const requestData = {
+	// 		routineName: routineName,
+	// 		routines: routines,
+	// 		exercises: exercises
+	// 	};
+	//
+	// 	// 백엔드로 데이터 전송
+	// 	try {
+	// 		const response = await fetch(`${apiUrl}/routines`, {
+	// 			method: 'POST',
+	// 			headers: {
+	// 				'Content-Type': 'application/json',
+	// 				'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+	// 			},
+	// 			body: JSON.stringify(requestData),
+	// 		});
+	//
+	// 		if (!response.ok) {
+	// 			throw new Error('루틴 저장 실패');
+	// 		}
+	//
+	// 		alert('루틴이 성공적으로 저장되었습니다!');
+	// 	} catch (error) {
+	// 		console.error('루틴 저장 중 오류 발생:', error);
+	// 		alert('루틴 저장에 실패했습니다.');
+	// 	}
+	// });
 
-		const routineName = document.getElementById('routine-name').value;
-		const routineNameError = document.getElementById('routine-name-error');
-		if (routineName.trim() === "") {
-			routineNameError.textContent = '루틴 이름을 입력하세요.';
-			return;
-		} else {
-			routineNameError.textContent = '';
-		}
+}
 
-		const exerciseNames = document.querySelectorAll('[name="exercise-name"]');
-		const bodyParts = document.querySelectorAll('[name="body-part"]');
+// 운동 삭제 기능 추가
+function attachRemoveExerciseEvent(exerciseItem) {
+	exerciseItem.querySelector('.remove-exercise').addEventListener('click', function () {
+		exerciseItem.remove(); // 해당 운동 항목 삭제
+	});
+}
 
-		const routines = [];
-		const exercises = []
-		exerciseNames.forEach((exerciseName, index) => {
-			routines.push({
-				routineName: routineName,
-				bodyPart: bodyParts[index].value,
-				exerciseName: exerciseName.value
-			});
-			exercises.push({
-				bodyPart: bodyParts[index].value,
-				exerciseName: exerciseName.value
-			})
-		});
+// 유효성 검사 및 데이터 전송 함수
+async function saveRoutine() {
+	const routineName = document.getElementById('routine-name').value;
+	const routineNameError = document.getElementById('routine-name-error');
+	if (routineName.trim() === "") {
+		routineNameError.textContent = '루틴 이름을 입력하세요.';
+		return;
+	} else {
+		routineNameError.textContent = '';
+	}
 
-		const requestData = {
+	const exerciseNames = document.querySelectorAll('[name="exercise-name"]');
+	const bodyParts = document.querySelectorAll('[name="body-part"]');
+
+	const routines = [];
+	const exercises = [];
+	exerciseNames.forEach((exerciseName, index) => {
+		routines.push({
 			routineName: routineName,
-			routines: routines,
-			exercises: exercises
-		};
-
-		// 백엔드로 데이터 전송
-		try {
-			const response = await fetch(`${apiUrl}/routines`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-				},
-				body: JSON.stringify(requestData),
-			});
-
-			if (!response.ok) {
-				throw new Error('루틴 저장 실패');
-			}
-
-			alert('루틴이 성공적으로 저장되었습니다!');
-		} catch (error) {
-			console.error('루틴 저장 중 오류 발생:', error);
-			alert('루틴 저장에 실패했습니다.');
-		}
+			bodyPart: bodyParts[index].value,
+			exerciseName: exerciseName.value
+		});
+		exercises.push({
+			bodyPart: bodyParts[index].value,
+			exerciseName: exerciseName.value
+		});
 	});
 
-	// 운동 삭제 기능 추가
-	function attachRemoveExerciseEvent(exerciseItem) {
-		exerciseItem.querySelector('.remove-exercise').addEventListener('click', function () {
-			exerciseItem.remove(); // 해당 운동 항목 삭제
+	const requestData = {
+		routineName: routineName,
+		routines: routines,
+		exercises: exercises
+	};
+
+	// 백엔드로 데이터 전송
+	try {
+		const response = await fetch(`${apiUrl}/routines`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+			},
+			body: JSON.stringify(requestData),
 		});
+
+		if (!response.ok) {
+			throw new Error('루틴 저장 실패');
+		}
+
+		alert('루틴이 성공적으로 저장되었습니다!');
+	} catch (error) {
+		console.error('루틴 저장 중 오류 발생:', error);
+		alert('루틴 저장에 실패했습니다.');
 	}
 }
 
@@ -235,6 +293,7 @@ function fillRoutineForm(routine) {
         `;
 		exerciseContainer.appendChild(exerciseItem);
 	});
+
 	const editButton = document.createElement('button');
 	editButton.type = 'button';
 	editButton.id = 'edit-routine';
@@ -255,6 +314,12 @@ function fillRoutineForm(routine) {
 	updateButton.addEventListener('click', async function () {
 		await updateRoutine();
 	});
+
+	// 루틴 저장 버튼 숨기기
+	const saveButton = document.querySelector('.submit-button');
+	if (saveButton) {
+		saveButton.style.display = 'none';
+	}
 }
 
 // Function to enable routine editing
@@ -266,18 +331,7 @@ function enableRoutineEditing() {
 		item.querySelector('input[name="exercise-name"]').removeAttribute('readonly');
 	});
 	document.getElementById('edit-routine').style.display = 'none';
-	// document.getElementById('save-routine').style.display = 'none';
 	document.getElementById('update-routine').style.display = 'inline';
-
-	// const updateButton = document.createElement('button');
-	// updateButton.type = 'button';
-	// updateButton.id = 'update-routine';
-	// updateButton.textContent = '루틴 업데이트';
-	// document.getElementById('routineForm').appendChild(updateRoutine);
-	//
-	// updateButton.addEventListener('click', async function () {
-	// 	await updateRoutine();
-	// });
 }
 
 
