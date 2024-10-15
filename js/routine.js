@@ -283,7 +283,7 @@ async function updateRoutine() {
 	};
 
 	try{
-		const response = await fetch(`${apiUrl}/routines/`, {
+		const response = await fetch(`${apiUrl}/routines`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
@@ -294,7 +294,7 @@ async function updateRoutine() {
 
 		if(!response.ok) {
 			const errorMessage = await response.json();
-			throw new Error(errorMessage)
+			throw new Error(errorMessage.message);
 		}
 	}catch(error){
 		console.error('루틴 저장 중 오류 발생:', error);
