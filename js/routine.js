@@ -283,7 +283,7 @@ async function updateRoutine() {
 	};
 
 	try{
-		const response = await fetch(`${apiUrl}/routines/all`, {
+		const response = await fetch(`${apiUrl}/routines/`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
