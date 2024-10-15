@@ -266,6 +266,7 @@ async function updateRoutine() {
 
 		updatedExercises.push({
 			id:routineId,
+			routineName,
 			bodyPart: bodyPart,
 			exerciseName: exerciseName,
 		});
