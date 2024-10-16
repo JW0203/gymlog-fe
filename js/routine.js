@@ -60,7 +60,7 @@ async function loadRoutineForm() {
             </div>
 
             <button type="button" id="add-exercise">운동 추가</button>
-            <button type="submit" class="submit-button">루틴 저장</button>
+            <button id="save-routine">루틴 저장</button>
         </form>
     `;
 
@@ -102,63 +102,64 @@ async function loadRoutineForm() {
 	});
 
 	// 루틴 저장 시 유효성 검사 및 데이터 전송
-	const form = document.getElementById('routineForm');
-	form.addEventListener('submit', async function (event) {
-		event.preventDefault(); // 기본 폼 제출 방지
-
-		const routineName = document.getElementById('routine-name').value;
-		const routineNameError = document.getElementById('routine-name-error');
-		if (routineName.trim() === "") {
-			routineNameError.textContent = '루틴 이름을 입력하세요.';
-			return;
-		} else {
-			routineNameError.textContent = '';
-		}
-
-		const exerciseNames = document.querySelectorAll('[name="exercise-name"]');
-		const bodyParts = document.querySelectorAll('[name="body-part"]');
-
-		const routines = [];
-		const exercises = []
-		exerciseNames.forEach((exerciseName, index) => {
-			routines.push({
-				routineName: routineName,
-				bodyPart: bodyParts[index].value,
-				exerciseName: exerciseName.value
-			});
-			exercises.push({
-				bodyPart: bodyParts[index].value,
-				exerciseName: exerciseName.value
-			})
-		});
-
-		const requestData = {
-			routineName: routineName,
-			routines: routines,
-			exercises: exercises
-		};
-
-		// 백엔드로 데이터 전송
-		try {
-			const response = await fetch(`${apiUrl}/routines`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-				},
-				body: JSON.stringify(requestData),
-			});
-
-			if (!response.ok) {
-				throw new Error('루틴 저장 실패');
-			}
-
-			alert('루틴이 성공적으로 저장되었습니다!');
-		} catch (error) {
-			console.error('루틴 저장 중 오류 발생:', error);
-			alert('루틴 저장에 실패했습니다.');
-		}
-	});
+	document.getElementById('save-routine').addEventListener('click', saveRoutine)
+	// const form = document.getElementById('routineForm');
+	// form.addEventListener('submit', async function (event) {
+	// 	event.preventDefault(); // 기본 폼 제출 방지
+	//
+	// 	const routineName = document.getElementById('routine-name').value;
+	// 	const routineNameError = document.getElementById('routine-name-error');
+	// 	if (routineName.trim() === "") {
+	// 		routineNameError.textContent = '루틴 이름을 입력하세요.';
+	// 		return;
+	// 	} else {
+	// 		routineNameError.textContent = '';
+	// 	}
+	//
+	// 	const exerciseNames = document.querySelectorAll('[name="exercise-name"]');
+	// 	const bodyParts = document.querySelectorAll('[name="body-part"]');
+	//
+	// 	const routines = [];
+	// 	const exercises = []
+	// 	exerciseNames.forEach((exerciseName, index) => {
+	// 		routines.push({
+	// 			routineName: routineName,
+	// 			bodyPart: bodyParts[index].value,
+	// 			exerciseName: exerciseName.value
+	// 		});
+	// 		exercises.push({
+	// 			bodyPart: bodyParts[index].value,
+	// 			exerciseName: exerciseName.value
+	// 		})
+	// 	});
+	//
+	// 	const requestData = {
+	// 		routineName: routineName,
+	// 		routines: routines,
+	// 		exercises: exercises
+	// 	};
+	//
+	// 	// 백엔드로 데이터 전송
+	// 	try {
+	// 		const response = await fetch(`${apiUrl}/routines`, {
+	// 			method: 'POST',
+	// 			headers: {
+	// 				'Content-Type': 'application/json',
+	// 				'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+	// 			},
+	// 			body: JSON.stringify(requestData),
+	// 		});
+	//
+	// 		if (!response.ok) {
+	// 			throw new Error('루틴 저장 실패');
+	// 		}
+	//
+	// 		alert('루틴이 성공적으로 저장되었습니다!');
+	// 	} catch (error) {
+	// 		console.error('루틴 저장 중 오류 발생:', error);
+	// 		alert('루틴 저장에 실패했습니다.');
+	// 	}
+	// });
 
 }
 
@@ -169,7 +170,55 @@ function attachRemoveExerciseEvent(exerciseItem) {
 	});
 }
 
+// 유효성 검사 및 데이터 전송 함수
+async function saveRoutine() {
+	const routineName = document.getElementById('routine-name').value;
 
+
+	const exerciseNames = document.querySelectorAll('[name="exercise-name"]');
+	const bodyParts = document.querySelectorAll('[name="body-part"]');
+
+	const routines = [];
+	const exercises = [];
+	exerciseNames.forEach((exerciseName, index) => {
+		routines.push({
+			routineName: routineName,
+			bodyPart: bodyParts[index].value,
+			exerciseName: exerciseName.value
+		});
+		exercises.push({
+			bodyPart: bodyParts[index].value,
+			exerciseName: exerciseName.value
+		});
+	});
+
+	const requestData = {
+		routineName: routineName,
+		routines: routines,
+		exercises: exercises
+	};
+
+	// 백엔드로 데이터 전송
+	try {
+		const response = await fetch(`${apiUrl}/routines`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+			},
+			body: JSON.stringify(requestData),
+		});
+
+		if (!response.ok) {
+			throw new Error('루틴 저장 실패');
+		}
+
+		alert('루틴이 성공적으로 저장되었습니다!');
+	} catch (error) {
+		console.error('루틴 저장 중 오류 발생:', error);
+		alert('루틴 저장에 실패했습니다.');
+	}
+}
 
 async function getAllRoutines(apiUrl) {
 	try {
