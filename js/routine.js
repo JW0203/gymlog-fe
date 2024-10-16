@@ -284,6 +284,7 @@ function fillRoutineForm(routine) {
 
 	deleteButton.addEventListener('click', async function () {
 		await deleteRoutine();
+		await loadRoutineForm();
 	});
 
 	const updateButton = document.createElement('button');
