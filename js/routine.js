@@ -340,7 +340,7 @@ function fillRoutineForm(routine) {
 	deleteButton.textContent = '삭제';
 	exerciseContainer.appendChild(deleteButton);
 
-	editButton.addEventListener('click', async function () {
+	deleteButton.addEventListener('click', async function () {
 		await deleteRoutine();
 	});
 
