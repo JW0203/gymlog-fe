@@ -333,6 +333,17 @@ function fillRoutineForm(routine) {
 		enableRoutineEditing();
 	});
 
+	const deleteButton = document.createElement('button');
+	deleteButton.type = 'button';
+	deleteButton.id = 'delete-routine';
+	deleteButton.className = 'delete-button';
+	deleteButton.textContent = '삭제';
+	exerciseContainer.appendChild(deleteButton);
+
+	editButton.addEventListener('click', async function () {
+		await deleteRoutine();
+	});
+
 	const updateButton = document.createElement('button');
 	updateButton.type = 'button';
 	updateButton.id = 'update-routine';
@@ -384,4 +395,35 @@ function clearRoutineForm() {
             <button type="button" class="remove-exercise">운동 삭제</button>
         </div>
     `;
+}
+
+async function deleteRoutine() {
+	const ids =[];
+	const exerciseItems = document.querySelectorAll('.exercise-item');
+	exerciseItems.forEach((exerciseItem) => {
+		const routineId = parseInt(exerciseItem.querySelector('[name="routine-id"]').value, 10);
+		ids.push({
+			id:routineId,
+		});
+	});
+
+	try{
+		const response = await fetch(`${apiUrl}/routines`, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+			},
+			body: JSON.stringify({ids})
+		});
+
+		if(!response.ok) {
+			const errorMessage = await response.json();
+			throw new Error(errorMessage.message);
+		}
+	}catch(error){
+		console.error('루틴 삭제 중 오류 발생:', error);
+		alert('루틴 삭제에 실패했습니다.');
+	}
+
 }
