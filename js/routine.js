@@ -102,7 +102,7 @@ async function loadRoutineForm() {
 	});
 
 	// 루틴 저장 시 유효성 검사 및 데이터 전송
-	document.getElementById('save-routine').addEventListener('click', saveRoutine)
+	document.getElementById('save-routine').addEventListener('click', async  ()=> saveRoutine());
 	// const form = document.getElementById('routineForm');
 	// form.addEventListener('submit', async function (event) {
 	// 	event.preventDefault(); // 기본 폼 제출 방지
@@ -332,6 +332,7 @@ function fillRoutineForm(routine) {
 	editButton.addEventListener('click', function () {
 		enableRoutineEditing();
 	});
+
 	const updateButton = document.createElement('button');
 	updateButton.type = 'button';
 	updateButton.id = 'update-routine';
