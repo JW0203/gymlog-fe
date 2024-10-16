@@ -402,9 +402,7 @@ async function deleteRoutine() {
 	const exerciseItems = document.querySelectorAll('.exercise-item');
 	exerciseItems.forEach((exerciseItem) => {
 		const routineId = parseInt(exerciseItem.querySelector('[name="routine-id"]').value, 10);
-		ids.push({
-			id:routineId,
-		});
+		ids.push(routineId);
 	});
 
 	try{
@@ -421,6 +419,7 @@ async function deleteRoutine() {
 			const errorMessage = await response.json();
 			throw new Error(errorMessage.message);
 		}
+		alert('루틴 삭제에 성공했습니다.');
 	}catch(error){
 		console.error('루틴 삭제 중 오류 발생:', error);
 		alert('루틴 삭제에 실패했습니다.');
