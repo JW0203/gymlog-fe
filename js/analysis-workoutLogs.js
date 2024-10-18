@@ -267,18 +267,34 @@ function renderWorkoutRecords(workoutData, date) {
     });
 
 	// 운동 기록을 테이블 행으로 렌더링
-    workoutData.forEach(record => {
+    // workoutData.forEach(record => {
+    //     const row = table.insertRow();
+    //     row.innerHTML = `
+    //         <td>${record.id}</td>
+    //         <td><input type="text" value="${record.exercise.bodyPart}" class="edit-bodyPart" disabled></td>
+    //         <td><input type="text" value="${record.exercise.exerciseName}" class="edit-exerciseName" disabled></td>
+    //         <td><input type="number" value="${record.setCount}" class="edit-setCount" disabled></td>
+    //         <td><input type="number" value="${record.weight}" class="edit-weight" disabled> kg</td>
+    //         <td><input type="number" value="${record.repeatCount}" class="edit-repeatCount" disabled> 회</td>
+    //         <td><input type="checkbox" class="edit-checkbox" data-id="${record.id}"></td>
+    //         <td><input type="checkbox" class="delete-checkbox" data-id="${record.id}"></td>
+    //     `;
+    // });
+	workoutData.forEach(record => {
         const row = table.insertRow();
         row.innerHTML = `
-            <td>${record.id}</td>
-            <td><input type="text" value="${record.exercise.bodyPart}" class="edit-bodyPart" disabled></td>
-            <td><input type="text" value="${record.exercise.exerciseName}" class="edit-exerciseName" disabled></td>
-            <td><input type="number" value="${record.setCount}" class="edit-setCount" disabled></td>
-            <td><input type="number" value="${record.weight}" class="edit-weight" disabled> kg</td>
-            <td><input type="number" value="${record.repeatCount}" class="edit-repeatCount" disabled> 회</td>
-            <td><input type="checkbox" class="edit-checkbox" data-id="${record.id}"></td>
+            <td>${record.exercise.bodyPart}</td>
+            <td>${record.exercise.exerciseName}</td>
+            <td>${record.setCount}</td>
+            <td>${record.weight} kg</td>
+            <td>${record.repeatCount} 회</td>
+            <td><button class="edit-button" data-id="${record.id}">수정</button></td>
             <td><input type="checkbox" class="delete-checkbox" data-id="${record.id}"></td>
         `;
+
+        // 수정 버튼에 이벤트 리스너 추가
+        const editButton = row.querySelector('.edit-button');
+        editButton.addEventListener('click', () => editWorkout(record, row, date));
     });
 	recordsDiv.appendChild(table);
 	// // 운동 기록을 렌더링하면서 체크박스 추가
@@ -317,47 +333,47 @@ function renderWorkoutRecords(workoutData, date) {
 	}
 
 
-	// 수정 버튼 추가
-	let editButton = document.getElementById('edit-workout-button');
-	if (!editButton) {
-		editButton = document.createElement('button');
-		editButton.id = 'edit-workout-button';
-		editButton.textContent = '선택한 운동 수정';
-		editButton.addEventListener('click', () => {
-			const selectedCheckboxes = document.querySelectorAll('.edit-checkbox:checked');
-			selectedCheckboxes.forEach(checkbox => {
-				const recordDiv = checkbox.closest('.workout-record');
-				recordDiv.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => input.disabled = false);
-			});
+	// // 수정 버튼 추가
+	// let editButton = document.getElementById('edit-workout-button');
+	// if (!editButton) {
+	// 	editButton = document.createElement('button');
+	// 	editButton.id = 'edit-workout-button';
+	// 	editButton.textContent = '선택한 운동 수정';
+	// 	editButton.addEventListener('click', () => {
+	// 		const selectedCheckboxes = document.querySelectorAll('.edit-checkbox:checked');
+	// 		selectedCheckboxes.forEach(checkbox => {
+	// 			const recordDiv = checkbox.closest('.workout-record');
+	// 			recordDiv.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => input.disabled = false);
+	// 		});
 
-			// 저장 버튼 및 수정 취소 버튼 추가
-			let saveButton = document.getElementById('save-workout-button');
-			if (!saveButton) {
-				saveButton = document.createElement('button');
-				saveButton.id = 'save-workout-button';
-				saveButton.textContent = '저장';
-				saveButton.addEventListener('click', async () => {
-					await handleUpdateSelectedWorkouts(workoutData, date);
-				});
-				recordsDiv.appendChild(saveButton);
-			}
+	// 		// 저장 버튼 및 수정 취소 버튼 추가
+	// 		let saveButton = document.getElementById('save-workout-button');
+	// 		if (!saveButton) {
+	// 			saveButton = document.createElement('button');
+	// 			saveButton.id = 'save-workout-button';
+	// 			saveButton.textContent = '저장';
+	// 			saveButton.addEventListener('click', async () => {
+	// 				await handleUpdateSelectedWorkouts(workoutData, date);
+	// 			});
+	// 			recordsDiv.appendChild(saveButton);
+	// 		}
 
-			let cancelButton = document.getElementById('cancel-edit-workout-button');
-			if (!cancelButton) {
-				cancelButton = document.createElement('button');
-				cancelButton.id = 'cancel-edit-workout-button';
-				cancelButton.textContent = '수정 취소';
-				cancelButton.addEventListener('click', () => {
-					selectedCheckboxes.forEach(checkbox => {
-						const recordDiv = checkbox.closest('.workout-record');
-						recordDiv.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => input.disabled = true);
-					});
-				});
-				recordsDiv.appendChild(cancelButton);
-			}
-		});
-		recordsDiv.appendChild(editButton);
-	}
+	// 		let cancelButton = document.getElementById('cancel-edit-workout-button');
+	// 		if (!cancelButton) {
+	// 			cancelButton = document.createElement('button');
+	// 			cancelButton.id = 'cancel-edit-workout-button';
+	// 			cancelButton.textContent = '수정 취소';
+	// 			cancelButton.addEventListener('click', () => {
+	// 				selectedCheckboxes.forEach(checkbox => {
+	// 					const recordDiv = checkbox.closest('.workout-record');
+	// 					recordDiv.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => input.disabled = true);
+	// 				});
+	// 			});
+	// 			recordsDiv.appendChild(cancelButton);
+	// 		}
+	// 	});
+	// 	recordsDiv.appendChild(editButton);
+	// }
 }
 
 async function handleDeleteSelectedWorkouts(workoutData, date) {
@@ -423,23 +439,36 @@ async function deleteWorkout(selectedIds, workoutData, date) {
 }
 
 async function updateWorkout( updateWorkoutData, date) {
-	const updateWorkoutLogs = updateWorkoutData.map(workout => {
-		return {
-			id: workout.id,
-			setCount: workout.setCount,
-			weight: workout.weight,
-			repeatCount: workout.repeatCount,
-			bodyPart: workout.exercise.bodyPart,
-			exerciseName: workout.exercise.exerciseName
-		};
-	});
+	// const updateWorkoutLogs = updateWorkoutData.map(workout => {
+	// 	return {
+	// 		id: workout.id,
+	// 		setCount: workout.setCount,
+	// 		weight: workout.weight,
+	// 		repeatCount: workout.repeatCount,
+	// 		bodyPart: workout.exercise.bodyPart,
+	// 		exerciseName: workout.exercise.exerciseName
+	// 	};
+	// });
+	const updateWorkoutLogs = updateWorkoutData.map(workout => ({
+        id: workout.id,
+        setCount: workout.setCount,
+        weight: workout.weight,
+        repeatCount: workout.repeatCount,
+        bodyPart: workout.exercise.bodyPart,
+        exerciseName: workout.exercise.exerciseName
+    }));
+	const exercises = updateWorkoutData.map(workout => ({
+        bodyPart: workout.exercise.bodyPart,
+        exerciseName: workout.exercise.exerciseName
+    }));
+
 	// 중복되지 않은 운동 정보를 exercises 배열로 생성
-	const exercises = [...new Map(updateWorkoutData.map(workout => {
-		return [workout.exercise.exerciseName, {
-			bodyPart: workout.exercise.bodyPart,
-			exerciseName: workout.exercise.exerciseName
-		}];
-	})).values()];
+	// const exercises = [...new Map(updateWorkoutData.map(workout => {
+	// 	return [workout.exercise.exerciseName, {
+	// 		bodyPart: workout.exercise.bodyPart,
+	// 		exerciseName: workout.exercise.exerciseName
+	// 	}];
+	// })).values()];
 
 	const requestBody = {
 		updateWorkoutLogs,
@@ -471,4 +500,42 @@ async function updateWorkout( updateWorkoutData, date) {
 		console.error('운동 기록 삭제 중 오류 발생:', error);
 		alert('운동 기록을 삭제하는 중 오류가 발생했습니다.');
 	}
+}
+
+function editWorkout(record, row, date) {
+    // 현재 행의 내용을 입력 필드로 변경
+    row.innerHTML = `
+        <td><input type="text" class="edit-bodyPart" value="${record.exercise.bodyPart}"></td>
+        <td><input type="text" class="edit-exerciseName" value="${record.exercise.exerciseName}"></td>
+        <td><input type="number" class="edit-setCount" value="${record.setCount}"></td>
+        <td><input type="number" class="edit-weight" value="${record.weight}"></td>
+        <td><input type="number" class="edit-repeatCount" value="${record.repeatCount}"></td>
+        <td>
+            <button class="save-button">저장</button>
+            <button class="cancel-button">취소</button>
+        </td>
+        <td></td>
+    `;
+
+    // 저장 버튼에 이벤트 리스너 추가
+    const saveButton = row.querySelector('.save-button');
+    saveButton.addEventListener('click', async () => {
+        const updatedRecord = {
+            ...record,
+            exercise: {
+                bodyPart: row.querySelector('.edit-bodyPart').value,
+                exerciseName: row.querySelector('.edit-exerciseName').value
+            },
+            setCount: parseInt(row.querySelector('.edit-setCount').value),
+            weight: parseFloat(row.querySelector('.edit-weight').value),
+            repeatCount: parseInt(row.querySelector('.edit-repeatCount').value)
+        };
+        await updateWorkout([updatedRecord], date);
+    });
+
+    // 취소 버튼에 이벤트 리스너 추가
+    const cancelButton = row.querySelector('.cancel-button');
+    cancelButton.addEventListener('click', () => {
+        renderWorkoutRecords([record], date);
+    });
 }
