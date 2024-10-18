@@ -240,26 +240,28 @@ function injectAnalysisUI() {
 }
 
 function renderWorkoutRecords(workoutData, date) {
-	const recordsDiv = document.getElementById('exercise-records');
-	recordsDiv.innerHTML = `<h3>${date} 운동 기록</h3>`;
+    const recordsDiv = document.getElementById('exercise-records');
+    recordsDiv.innerHTML = `<h3>${date} 운동 기록</h3>`;
 
-	if (workoutData.length === 0) {
-		recordsDiv.innerHTML += '<p>기록된 운동이 없습니다.</p>';
-		return;
-	}
-	// 테이블 생성
+    if (workoutData.length === 0) {
+        recordsDiv.innerHTML += '<p>기록된 운동이 없습니다.</p>';
+        return;
+    }
+
+    // 테이블 생성
     const table = document.createElement('table');
     table.classList.add('workout-record-table');
-
-	// 테이블 헤더 생성
+    
+    // 테이블 헤더 생성
     const headerRow = table.insertRow();
-    ['부위', '운동이름', '세트 수', '무게', '반복 횟수', '수정', '삭제'].forEach(text => {
+    ['부위', '운동이름', '세트 수', '무게', '반복 횟수', '삭제'].forEach(text => {
         const th = document.createElement('th');
         th.textContent = text;
         headerRow.appendChild(th);
     });
 
-	workoutData.forEach(record => {
+    // 운동 기록을 테이블 행으로 렌더링
+    workoutData.forEach(record => {
         const row = table.insertRow();
         row.innerHTML = `
             <td>${record.exercise.bodyPart}</td>
@@ -267,31 +269,90 @@ function renderWorkoutRecords(workoutData, date) {
             <td>${record.setCount}</td>
             <td>${record.weight} kg</td>
             <td>${record.repeatCount} 회</td>
-            <td><button class="edit-button" data-id="${record.id}">수정</button></td>
             <td><input type="checkbox" class="delete-checkbox" data-id="${record.id}"></td>
         `;
-
-        // 수정 버튼에 이벤트 리스너 추가
-        const editButton = row.querySelector('.edit-button');
-        editButton.addEventListener('click', () => editWorkout(record, row, date));
     });
-	recordsDiv.appendChild(table);
 
-	// 삭제 버튼 추가
-	let deleteButton = document.getElementById('delete-workout-button');
-	if (!deleteButton) {
-		deleteButton = document.createElement('button');
-		deleteButton.id = 'delete-workout-button';
-		deleteButton.textContent = '선택한 운동 삭제';
-		deleteButton.addEventListener('click', async () => {
-			if (confirm('정말로 선택한 운동을 삭제하시겠습니까?')) {
-				await handleDeleteSelectedWorkouts(workoutData, date);
-			}
-		});
-		recordsDiv.appendChild(deleteButton);
-	}
+    recordsDiv.appendChild(table);
 
+    // 버튼 컨테이너 생성
+    const buttonContainer = document.createElement('div');
+    buttonContainer.id = 'workout-button-container';
+
+    // 삭제 버튼 추가
+    const deleteButton = document.createElement('button');
+    deleteButton.id = 'delete-workout-button';
+    deleteButton.textContent = '선택한 운동 삭제';
+    deleteButton.addEventListener('click', async () => {
+        if (confirm('정말로 선택한 운동을 삭제하시겠습니까?')) {
+            await handleDeleteSelectedWorkouts(workoutData, date);
+        }
+    });
+    buttonContainer.appendChild(deleteButton);
+
+    // 수정 버튼 추가
+    const editButton = document.createElement('button');
+    editButton.id = 'edit-workout-button';
+    editButton.textContent = '수정';
+    editButton.addEventListener('click', () => enableEditMode(workoutData, date));
+    buttonContainer.appendChild(editButton);
+
+    recordsDiv.appendChild(buttonContainer);
 }
+
+// function renderWorkoutRecords(workoutData, date) {
+// 	const recordsDiv = document.getElementById('exercise-records');
+// 	recordsDiv.innerHTML = `<h3>${date} 운동 기록</h3>`;
+
+// 	if (workoutData.length === 0) {
+// 		recordsDiv.innerHTML += '<p>기록된 운동이 없습니다.</p>';
+// 		return;
+// 	}
+// 	// 테이블 생성
+//     const table = document.createElement('table');
+//     table.classList.add('workout-record-table');
+
+// 	// 테이블 헤더 생성
+//     const headerRow = table.insertRow();
+//     ['부위', '운동이름', '세트 수', '무게', '반복 횟수', '수정', '삭제'].forEach(text => {
+//         const th = document.createElement('th');
+//         th.textContent = text;
+//         headerRow.appendChild(th);
+//     });
+
+// 	workoutData.forEach(record => {
+//         const row = table.insertRow();
+//         row.innerHTML = `
+//             <td>${record.exercise.bodyPart}</td>
+//             <td>${record.exercise.exerciseName}</td>
+//             <td>${record.setCount}</td>
+//             <td>${record.weight} kg</td>
+//             <td>${record.repeatCount} 회</td>
+//             <td><button class="edit-button" data-id="${record.id}">수정</button></td>
+//             <td><input type="checkbox" class="delete-checkbox" data-id="${record.id}"></td>
+//         `;
+
+//         // 수정 버튼에 이벤트 리스너 추가
+//         const editButton = row.querySelector('.edit-button');
+//         editButton.addEventListener('click', () => editWorkout(record, row, date));
+//     });
+// 	recordsDiv.appendChild(table);
+
+// 	// 삭제 버튼 추가
+// 	let deleteButton = document.getElementById('delete-workout-button');
+// 	if (!deleteButton) {
+// 		deleteButton = document.createElement('button');
+// 		deleteButton.id = 'delete-workout-button';
+// 		deleteButton.textContent = '선택한 운동 삭제';
+// 		deleteButton.addEventListener('click', async () => {
+// 			if (confirm('정말로 선택한 운동을 삭제하시겠습니까?')) {
+// 				await handleDeleteSelectedWorkouts(workoutData, date);
+// 			}
+// 		});
+// 		recordsDiv.appendChild(deleteButton);
+// 	}
+
+// }
 
 async function handleDeleteSelectedWorkouts(workoutData, date) {
 	// 체크된 체크박스에서 선택된 운동의 id 수집
@@ -397,40 +458,74 @@ async function updateWorkout( updateWorkoutData, date) {
 	}
 }
 
-function editWorkout(record, row, date) {
-    // 현재 행의 내용을 입력 필드로 변경
-    row.innerHTML = `
-        <td><input type="text" class="edit-bodyPart" value="${record.exercise.bodyPart}"></td>
-        <td><input type="text" class="edit-exerciseName" value="${record.exercise.exerciseName}"></td>
-        <td><input type="number" class="edit-setCount" value="${record.setCount}"></td>
-        <td><input type="number" class="edit-weight" value="${record.weight}"></td>
-        <td><input type="number" class="edit-repeatCount" value="${record.repeatCount}"></td>
-        <td>
-            <button class="save-button">저장</button>
-            <button class="cancel-button">취소</button>
-        </td>
-        <td></td>
-    `;
+// function editWorkout(record, row, date) {
+//     // 현재 행의 내용을 입력 필드로 변경
+//     row.innerHTML = `
+//         <td><input type="text" class="edit-bodyPart" value="${record.exercise.bodyPart}"></td>
+//         <td><input type="text" class="edit-exerciseName" value="${record.exercise.exerciseName}"></td>
+//         <td><input type="number" class="edit-setCount" value="${record.setCount}"></td>
+//         <td><input type="number" class="edit-weight" value="${record.weight}"></td>
+//         <td><input type="number" class="edit-repeatCount" value="${record.repeatCount}"></td>
+//         <td>
+//             <button class="save-button">저장</button>
+//             <button class="cancel-button">취소</button>
+//         </td>
+//         <td></td>
+//     `;
 
-    // 저장 버튼에 이벤트 리스너 추가
-    const saveButton = row.querySelector('.save-button');
-    saveButton.addEventListener('click', async () => {
-        const updatedRecord = {
-            ...record,
-            exercise: {
-                bodyPart: row.querySelector('.edit-bodyPart').value,
-                exerciseName: row.querySelector('.edit-exerciseName').value
-            },
-            setCount: parseInt(row.querySelector('.edit-setCount').value),
-            weight: parseFloat(row.querySelector('.edit-weight').value),
-            repeatCount: parseInt(row.querySelector('.edit-repeatCount').value)
-        };
-        await updateWorkout([updatedRecord], date);
+//     // 저장 버튼에 이벤트 리스너 추가
+//     const saveButton = row.querySelector('.save-button');
+//     saveButton.addEventListener('click', async () => {
+//         const updatedRecord = {
+//             ...record,
+//             exercise: {
+//                 bodyPart: row.querySelector('.edit-bodyPart').value,
+//                 exerciseName: row.querySelector('.edit-exerciseName').value
+//             },
+//             setCount: parseInt(row.querySelector('.edit-setCount').value),
+//             weight: parseFloat(row.querySelector('.edit-weight').value),
+//             repeatCount: parseInt(row.querySelector('.edit-repeatCount').value)
+//         };
+//         await updateWorkout([updatedRecord], date);
+//     });
+
+//     // 취소 버튼에 이벤트 리스너 추가
+//     const cancelButton = row.querySelector('.cancel-button');
+//     cancelButton.addEventListener('click', () => {
+//         renderWorkoutRecords([record], date);
+//     });
+// }
+
+function enableEditMode(workoutData, date) {
+    const table = document.querySelector('.workout-record-table');
+    const rows = table.querySelectorAll('tr:not(:first-child)');
+    
+    rows.forEach((row, index) => {
+        const record = workoutData[index];
+        row.innerHTML = `
+            <td><input type="text" class="edit-bodyPart" value="${record.exercise.bodyPart}"></td>
+            <td><input type="text" class="edit-exerciseName" value="${record.exercise.exerciseName}"></td>
+            <td><input type="number" class="edit-setCount" value="${record.setCount}"></td>
+            <td><input type="number" class="edit-weight" value="${record.weight}"></td>
+            <td><input type="number" class="edit-repeatCount" value="${record.repeatCount}"></td>
+            <td><input type="checkbox" class="delete-checkbox" data-id="${record.id}"></td>
+        `;
     });
 
-    // 취소 버튼에 이벤트 리스너 추가
-    const cancelButton = row.querySelector('.cancel-button');
-    cancelButton.addEventListener('click', () => {
-        renderWorkoutRecords([record], date);
-    });
-}
+    const buttonContainer = document.getElementById('workout-button-container');
+    buttonContainer.innerHTML = '';
+
+    // 저장 버튼 추가
+    const saveButton = document.createElement('button');
+    saveButton.id = 'save-workout-button';
+    saveButton.textContent = '저장';
+    saveButton.addEventListener('click', () => handleUpdateSelectedWorkouts(workoutData, date));
+    buttonContainer.appendChild(saveButton);
+
+    // 수정 취소 버튼 추가
+    const cancelButton = document.createElement('button');
+    cancelButton.id = 'cancel-edit-workout-button';
+    cancelButton.textContent = '수정 취소';
+    cancelButton.addEventListener('click', () => renderWorkoutRecords(workoutData, date));
+    buttonContainer.appendChild(cancelButton);
+};
