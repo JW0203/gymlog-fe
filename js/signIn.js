@@ -63,10 +63,11 @@ async function handleSignInSubmit(event) {
 		const result = await signInRequest(email, password);
 		localStorage.setItem('accessToken', result.accessToken);
 		alert('로그인 성공!');
+		window.location.href = './index.html';
 
-		if (isAuthenticated()) {
-			window.location.href = './index.html'; // 이미 로그인된 경우 메인 페이지로 이동
-		}
+		// if (isAuthenticated()) {
+		// 	window.location.href = './index.html'; // 이미 로그인된 경우 메인 페이지로 이동
+		// }
 
 	} catch (error) {
 		document.getElementById('server-error').textContent = '로그인 실패: ' + error.message;
