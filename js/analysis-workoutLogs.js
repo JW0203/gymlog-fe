@@ -73,7 +73,15 @@ async function getWorkoutDataAtSelectedDate(selectedDate, dayDiv) {
 		return;
 	}
 
-	// const formattedDate = selectedDate // YYYY-MM-DD 형식
+	let formattedDate;
+    if (selectedDate instanceof Date) {
+        formattedDate = selectedDate.toISOString().split('T')[0];  // YYYY-MM-DD 형식
+    } else if (typeof selectedDate === 'string') {
+        formattedDate = selectedDate;  // 이미 YYYY-MM-DD 형식이라고 가정
+    } else {
+        console.error('Invalid date format');
+        return null;
+    }
 
 	// 기존 선택된 날짜의 마크 제거
 	document.querySelectorAll('#calendar-content .day').forEach(day => {
@@ -86,7 +94,7 @@ async function getWorkoutDataAtSelectedDate(selectedDate, dayDiv) {
 	dayDiv.style.color = 'blue';
 	try {
 		// 백엔드로 요청 보내기
-		const response = await fetch(`${apiUrl}/workout-logs?date=${selectedDate}`, {
+		const response = await fetch(`${apiUrl}/workout-logs?date=${formattedDate}`, {
 			method: 'GET',
 			headers: {
 				'Authorization': `Bearer ${accessToken}`,  // 인증 토큰 추가
