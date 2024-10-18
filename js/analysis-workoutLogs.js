@@ -260,7 +260,7 @@ function renderWorkoutRecords(workoutData, date) {
 
 	// 테이블 헤더 생성
     const headerRow = table.insertRow();
-    ['', '부위', '운동이름', '세트 수', '무게', '반복 횟수', '수정', '삭제'].forEach(text => {
+    ['부위', '운동이름', '세트 수', '무게', '반복 횟수', '수정', '삭제'].forEach(text => {
         const th = document.createElement('th');
         th.textContent = text;
         headerRow.appendChild(th);
