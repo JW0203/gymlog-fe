@@ -213,11 +213,11 @@ function injectAnalysisUI() {
     `;
 
 	const selectedDate = new Date();  // 오늘 날짜
-	const workoutLogs = {
-		'2024-09-29': '상체 운동 - 벤치프레스, 덤벨 플라이',
-		'2024-09-30': '하체 운동 - 스쿼트, 레그 프레스',
-		'2024-10-01': '상체 운동 - 풀업, 덤벨 숄더 프레스',
-	};  // 날짜별 운동 기록 예시 데이터
+	// const workoutLogs = {
+	// 	'2024-09-29': '상체 운동 - 벤치프레스, 덤벨 플라이',
+	// 	'2024-09-30': '하체 운동 - 스쿼트, 레그 프레스',
+	// 	'2024-10-01': '상체 운동 - 풀업, 덤벨 숄더 프레스',
+	// };  // 날짜별 운동 기록 예시 데이터
 
 	// 디폴트로 오늘에 해당하는 달을 선택
 	const monthSelect = document.getElementById('month-select');
@@ -259,19 +259,6 @@ function renderWorkoutRecords(workoutData, date) {
 	workoutData.forEach(record => {
 		const recordDiv = document.createElement('div');
 		recordDiv.classList.add('workout-record');
-
-		// // 운동 기록 표시 및 체크박스 추가
-		// recordDiv.innerHTML = `
-        //     <input type="checkbox" class="delete-checkbox" data-id="${record.id}"> <!-- 체크박스 추가 -->
-        //     <p><strong>부위:</strong> ${record.exercise.bodyPart}</p>
-        //     <p><strong>운동이름:</strong> ${record.exercise.exerciseName}</p>
-        //     <p><strong>세트 수:</strong> ${record.setCount}</p>
-        //     <p><strong>무게:</strong> ${record.weight} kg</p>
-        //     <p><strong>반복 횟수:</strong> ${record.repeatCount} 회</p>
-        //     <p>---------------</p>
-        // `;
-
-
 		// 운동 기록 표시 및 수정, 삭제 체크박스 추가
 		recordDiv.innerHTML = `
             <div>
@@ -303,19 +290,7 @@ function renderWorkoutRecords(workoutData, date) {
 		recordsDiv.appendChild(deleteButton);
 	}
 
-	// // 업데이트 버튼 추가
-	// let updateButton = document.getElementById('update-workout-button');
-	// if (!updateButton) {
-	// 	updateButton = document.createElement('button');
-	// 	updateButton.id = 'update-workout-button';
-	// 	updateButton.textContent = '선택한 운동 업데이트';
-	// 	updateButton.addEventListener('click', async () => {
-	// 		if (confirm('정말로 선택한 운동을 업데이트하시겠습니까?')) {
-	// 			await handleUpdateSelectedWorkouts(workoutData, date);
-	// 		}
-	// 	});
-	// 	recordsDiv.appendChild(updateButton);
-	// }
+
 	// 수정 버튼 추가
 	let editButton = document.getElementById('edit-workout-button');
 	if (!editButton) {
