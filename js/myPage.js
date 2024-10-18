@@ -48,7 +48,6 @@ async function showUserInfo() {
             <p><strong>이메일:</strong> ${data.email}</p>
             <p><strong>이름:</strong> ${data.name}</p>
             <p><strong>가입일:</strong> ${new Date(data.createdAt).toLocaleDateString()}</p>
-            <p>-----------</p>
             <p><strong>운동기록:</strong></p>
         `;
 
