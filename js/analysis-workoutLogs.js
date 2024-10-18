@@ -366,23 +366,36 @@ async function handleDeleteSelectedWorkouts(workoutData, date) {
 	}
 }
 
-async function handleUpdateSelectedWorkouts(workoutData, date) {
-	const selectedCheckboxes = document.querySelectorAll('.edit-checkbox:checked');
-	const selectedIds = Array.from(selectedCheckboxes).map(checkbox => parseInt(checkbox.getAttribute('data-id'), 10));
-	const updateData = workoutData.filter(record => selectedIds.includes(record.id)).map(record => {
-		const recordDiv = document.querySelector(`.workout-record[data-id="${record.id}"]`);
-		return {
-			...record,
-			setCount: parseInt(recordDiv.querySelector('.edit-setCount').value, 10),
-			weight: parseFloat(recordDiv.querySelector('.edit-weight').value),
-			repeatCount: parseInt(recordDiv.querySelector('.edit-repeatCount').value, 10),
-			exercise: {
-				bodyPart: recordDiv.querySelector('.edit-bodyPart').value,
-				exerciseName: recordDiv.querySelector('.edit-exerciseName').value
-			}
-		};
-	});
-	await updateWorkout(updateData, workoutData, date);
+async function handleUpdateWorkouts(workoutData, date) {
+	const table = document.querySelector('.workout-record-table');
+    const rows = table.querySelectorAll('tr:not(:first-child)');
+
+	const updatedWorkoutData = Array.from(rows).map((row, index) => {
+        const record = workoutData[index];
+        return {
+            id: record.id,  // 기존 id를 유지
+            exercise: {
+                bodyPart: row.querySelector('.edit-bodyPart').value,
+                exerciseName: row.querySelector('.edit-exerciseName').value
+            },
+            setCount: parseInt(row.querySelector('.edit-setCount').value),
+            weight: parseFloat(row.querySelector('.edit-weight').value),
+            repeatCount: parseInt(row.querySelector('.edit-repeatCount').value)
+        };
+    });
+
+	try {
+        await updateWorkout(updatedWorkoutData, date);
+        // 성공적으로 업데이트된 후 새로운 데이터를 가져와 화면을 갱신
+        const newWorkoutData = await getWorkoutDataAtSelectedDate(date);
+        if (newWorkoutData) {
+            renderWorkoutRecords(newWorkoutData, date);
+        }
+        alert('운동 기록이 성공적으로 업데이트되었습니다.');
+    } catch (error) {
+        console.error('운동 기록 업데이트 중 오류 발생:', error);
+        alert('운동 기록을 업데이트하는 중 오류가 발생했습니다.');
+    }
 }
 
 async function deleteWorkout(selectedIds, workoutData, date) {
@@ -448,9 +461,7 @@ async function updateWorkout( updateWorkoutData, date) {
 			throw new Error(`운동 기록을 업데이트하지 못했습니다: ${errorMessage.message || '알 수 없는 오류'}`);
 		}
 
-		const updatedWorkoutData = await getWorkoutDataAtSelectedDate(date)
-		// 업데이트 후, 기록을 다시 렌더링
-		await renderWorkoutRecords(updatedWorkoutData, date);
+		return await response.json();
 
 	} catch (error) {
 		console.error('운동 기록 삭제 중 오류 발생:', error);
@@ -519,7 +530,7 @@ function enableEditMode(workoutData, date) {
     const saveButton = document.createElement('button');
     saveButton.id = 'save-workout-button';
     saveButton.textContent = '저장';
-    saveButton.addEventListener('click', () => handleUpdateSelectedWorkouts(workoutData, date));
+    saveButton.addEventListener('click', () => handleUpdateWorkouts(workoutData, date));
     buttonContainer.appendChild(saveButton);
 
     // 수정 취소 버튼 추가
