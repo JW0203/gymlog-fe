@@ -216,3 +216,34 @@ footer {
     padding: 10px;
     font-size: 14px;
 }
+
+/* workout record table 스타일 */
+.workout-record-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.workout-record-table th, .workout-record-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.workout-record-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.workout-record-table input[type="text"],
+.workout-record-table input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+}
+
+.workout-record-table input[type="checkbox"] {
+    margin: 0;
+    padding: 0;
+}

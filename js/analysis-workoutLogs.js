@@ -254,27 +254,53 @@ function renderWorkoutRecords(workoutData, date) {
 		recordsDiv.innerHTML += '<p>기록된 운동이 없습니다.</p>';
 		return;
 	}
+	// 테이블 생성
+    const table = document.createElement('table');
+    table.classList.add('workout-record-table');
 
-	// 운동 기록을 렌더링하면서 체크박스 추가
-	workoutData.forEach(record => {
-		const recordDiv = document.createElement('div');
-		recordDiv.classList.add('workout-record');
-		// 운동 기록 표시 및 수정, 삭제 체크박스 추가
-		recordDiv.innerHTML = `
-            <div>
-                <input type="checkbox" class="edit-checkbox" data-id="${record.id}"> <!-- 수정 체크박스 추가 --> 수정
-                <input type="checkbox" class="delete-checkbox" data-id="${record.id}"> <!-- 삭제 체크박스 추가 --> 삭제
-            </div>
-            <p><strong>부위:</strong> <input type="text" value="${record.exercise.bodyPart}" class="edit-bodyPart" disabled></p>
-            <p><strong>운동이름:</strong> <input type="text" value="${record.exercise.exerciseName}" class="edit-exerciseName" disabled></p>
-            <p><strong>세트 수:</strong> <input type="number" value="${record.setCount}" class="edit-setCount" disabled></p>
-            <p><strong>무게:</strong> <input type="number" value="${record.weight}" class="edit-weight" disabled> kg</p>
-            <p><strong>반복 횟수:</strong> <input type="number" value="${record.repeatCount}" class="edit-repeatCount" disabled> 회</p>
-            <p>---------------</p>
+	// 테이블 헤더 생성
+    const headerRow = table.insertRow();
+    ['', '부위', '운동이름', '세트 수', '무게', '반복 횟수', '수정', '삭제'].forEach(text => {
+        const th = document.createElement('th');
+        th.textContent = text;
+        headerRow.appendChild(th);
+    });
+
+	// 운동 기록을 테이블 행으로 렌더링
+    workoutData.forEach(record => {
+        const row = table.insertRow();
+        row.innerHTML = `
+            <td>${record.id}</td>
+            <td><input type="text" value="${record.exercise.bodyPart}" class="edit-bodyPart" disabled></td>
+            <td><input type="text" value="${record.exercise.exerciseName}" class="edit-exerciseName" disabled></td>
+            <td><input type="number" value="${record.setCount}" class="edit-setCount" disabled></td>
+            <td><input type="number" value="${record.weight}" class="edit-weight" disabled> kg</td>
+            <td><input type="number" value="${record.repeatCount}" class="edit-repeatCount" disabled> 회</td>
+            <td><input type="checkbox" class="edit-checkbox" data-id="${record.id}"></td>
+            <td><input type="checkbox" class="delete-checkbox" data-id="${record.id}"></td>
         `;
+    });
+	ecordsDiv.appendChild(table);
+	// // 운동 기록을 렌더링하면서 체크박스 추가
+	// workoutData.forEach(record => {
+	// 	const recordDiv = document.createElement('div');
+	// 	recordDiv.classList.add('workout-record');
+	// 	// 운동 기록 표시 및 수정, 삭제 체크박스 추가
+	// 	recordDiv.innerHTML = `
+    //         <div>
+    //             <input type="checkbox" class="edit-checkbox" data-id="${record.id}"> <!-- 수정 체크박스 추가 --> 수정
+    //             <input type="checkbox" class="delete-checkbox" data-id="${record.id}"> <!-- 삭제 체크박스 추가 --> 삭제
+    //         </div>
+    //         <p><strong>부위:</strong> <input type="text" value="${record.exercise.bodyPart}" class="edit-bodyPart" disabled></p>
+    //         <p><strong>운동이름:</strong> <input type="text" value="${record.exercise.exerciseName}" class="edit-exerciseName" disabled></p>
+    //         <p><strong>세트 수:</strong> <input type="number" value="${record.setCount}" class="edit-setCount" disabled></p>
+    //         <p><strong>무게:</strong> <input type="number" value="${record.weight}" class="edit-weight" disabled> kg</p>
+    //         <p><strong>반복 횟수:</strong> <input type="number" value="${record.repeatCount}" class="edit-repeatCount" disabled> 회</p>
+    //         <p>---------------</p>
+    //     `;
 
-		recordsDiv.appendChild(recordDiv); // 기록을 화면에 추가
-	});
+	// 	recordsDiv.appendChild(recordDiv); // 기록을 화면에 추가
+	// });
 
 	// 삭제 버튼 추가
 	let deleteButton = document.getElementById('delete-workout-button');
