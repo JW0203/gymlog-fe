@@ -228,10 +228,10 @@ function injectAnalysisUI() {
 	viewSelect.addEventListener('change', () => {
 		if (viewSelect.value === 'week') {
 			document.getElementById('month-select-container').style.display = 'none';  // 달 선택 숨김
-			renderWeek(selectedDate, workoutLogs);
+			renderWeek(selectedDate);
 		} else if (viewSelect.value === 'month') {
 			document.getElementById('month-select-container').style.display = 'block';  // 달 선택 표시
-			renderMonth(selectedDate, workoutLogs);  // 선택된 달 렌더링
+			renderMonth(selectedDate);  // 선택된 달 렌더링
 		}
 	});
 
@@ -239,11 +239,11 @@ function injectAnalysisUI() {
 	monthSelect.addEventListener('change', () => {
 		const selectedMonth = parseInt(monthSelect.value, 10);
 		selectedDate.setMonth(selectedMonth);  // 선택된 달로 날짜 업데이트
-		renderMonth(selectedDate, workoutLogs);  // 선택된 달 렌더링
+		renderMonth(selectedDate);  // 선택된 달 렌더링
 	});
 
 	// 기본적으로 주 렌더링
-	renderWeek(selectedDate, workoutLogs);
+	renderWeek(selectedDate);
 }
 
 function renderWorkoutRecords(workoutData, date) {
