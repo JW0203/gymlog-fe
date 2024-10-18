@@ -62,7 +62,7 @@ async function handleSignInSubmit(event) {
 	try {
 		const result = await signInRequest(email, password);
 		localStorage.setItem('accessToken', result.accessToken);
-		alert('로그인 성공!');
+		// alert('로그인 성공!');
 		window.location.href = './index.html';
 
 		// if (isAuthenticated()) {
