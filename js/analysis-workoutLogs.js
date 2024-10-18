@@ -280,7 +280,7 @@ function renderWorkoutRecords(workoutData, date) {
             <td><input type="checkbox" class="delete-checkbox" data-id="${record.id}"></td>
         `;
     });
-	ecordsDiv.appendChild(table);
+	recordsDiv.appendChild(table);
 	// // 운동 기록을 렌더링하면서 체크박스 추가
 	// workoutData.forEach(record => {
 	// 	const recordDiv = document.createElement('div');
