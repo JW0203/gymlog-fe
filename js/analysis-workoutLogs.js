@@ -119,18 +119,18 @@ function renderWeek(selectedDate){
 
 	weekDates.forEach(date => {
 		const dayDiv = document.createElement('div');
-		dayDiv.classList.add('day');
-		dayDiv.textContent = formatDate(date);  // 9월 5일 목요일 형식
+		// dayDiv.classList.add('day');
+		// dayDiv.textContent = formatDate(date);  // 9월 5일 목요일 형식
+		dayDiv.className = 'day';
+		dayDiv.textContent = date.getDate();
+        dayDiv.dataset.fullDate = date.toISOString().split('T')[0]; // YYYY-MM-DD 형식으로 저장
 
 		if (isToday(date)) {
 			dayDiv.classList.add('today');
 		}
 
 		dayDiv.addEventListener('click', async () => {
-			const year = currentDate.getFullYear();
-			const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-			const day = String(dayDiv.textContent).padStart(2, '0');
-			const formattedDate = `${year}-${month}-${day}`;
+			const formattedDate = dayDiv.dataset.fullDate; 
 			const workoutData = await getWorkoutDataAtSelectedDate(formattedDate);
 			if (workoutData) {
 				renderWorkoutRecords(workoutData, formattedDate);
@@ -167,18 +167,18 @@ function renderMonth(selectedDate){
 	// 각 날짜 렌더링
 	monthDates.forEach(date => {
 		const dayDiv = document.createElement('div');
-		dayDiv.classList.add('day');
-		dayDiv.textContent = date.getDate();  // 1, 2, 3, ... 형식으로 날짜만 표시
+		// dayDiv.classList.add('day');
+		// dayDiv.textContent = date.getDate();  // 1, 2, 3, ... 형식으로 날짜만 표시
+		dayDiv.className = 'day';
+		dayDiv.textContent = date.getDate();
+        dayDiv.dataset.fullDate = date.toISOString().split('T')[0]; // YYYY-MM-DD 형식으로 저장
 
 		if (isToday(date)) {
 			dayDiv.classList.add('today');
 		}
 
 		dayDiv.addEventListener('click', async() => {
-			const year = currentDate.getFullYear();
-			const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-			const day = String(dayDiv.textContent).padStart(2, '0');
-			const formattedDate = `${year}-${month}-${day}`;
+			const formattedDate = dayDiv.dataset.fullDate; 
 			const workoutData = await getWorkoutDataAtSelectedDate(formattedDate);
 			if (workoutData) {
 				renderWorkoutRecords(workoutData, formattedDate);
