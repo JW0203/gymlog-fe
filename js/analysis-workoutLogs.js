@@ -75,6 +75,7 @@ async function getWorkoutDataAtSelectedDate(selectedDate) {
 
 	// selectedDate는 이미 'YYYY-MM-DD' 형식이라고 가정합니다.
     const formattedDate = selectedDate;
+	console.log(formattedDate);
 
 	// 기존 선택된 날짜의 마크 제거
 	document.querySelectorAll('#calendar-content .day').forEach(day => {
@@ -122,7 +123,7 @@ function renderWeek(selectedDate){
 		// dayDiv.classList.add('day');
 		// dayDiv.textContent = formatDate(date);  // 9월 5일 목요일 형식
 		dayDiv.className = 'day';
-		dayDiv.textContent = date.getDate();
+		dayDiv.textContent = formatDate(date);
         dayDiv.dataset.fullDate = date.toISOString().split('T')[0]; // YYYY-MM-DD 형식으로 저장
 
 		if (isToday(date)) {
@@ -131,6 +132,7 @@ function renderWeek(selectedDate){
 
 		dayDiv.addEventListener('click', async () => {
 			const formattedDate = dayDiv.dataset.fullDate; 
+			console.log(`clicked: ${formattedDate}`);
 			const workoutData = await getWorkoutDataAtSelectedDate(formattedDate);
 			if (workoutData) {
 				renderWorkoutRecords(workoutData, formattedDate);
