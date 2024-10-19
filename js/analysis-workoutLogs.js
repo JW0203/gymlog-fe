@@ -66,22 +66,15 @@ function formatDate(date) {
 }
 
 // 선택한 날짜를 마크하고 해당 날짜의 운동 기록을 표시하는 함수
-async function getWorkoutDataAtSelectedDate(selectedDate, dayDiv) {
+async function getWorkoutDataAtSelectedDate(selectedDate) {
 	const accessToken = localStorage.getItem('accessToken');
 	if (!accessToken) {
 		alert('로그인이 필요합니다.');
 		return;
 	}
 
-	let formattedDate;
-    if (selectedDate instanceof Date) {
-        formattedDate = selectedDate.toISOString().split('T')[0];  // YYYY-MM-DD 형식
-    } else if (typeof selectedDate === 'string') {
-        formattedDate = selectedDate;  // 이미 YYYY-MM-DD 형식이라고 가정
-    } else {
-        console.error('Invalid date format');
-        return null;
-    }
+	// selectedDate는 이미 'YYYY-MM-DD' 형식이라고 가정합니다.
+    const formattedDate = selectedDate;
 
 	// 기존 선택된 날짜의 마크 제거
 	document.querySelectorAll('#calendar-content .day').forEach(day => {
@@ -90,8 +83,8 @@ async function getWorkoutDataAtSelectedDate(selectedDate, dayDiv) {
 	});
 
 	// 선택된 날짜에 스타일 추가
-	dayDiv.style.fontWeight = 'bold';
-	dayDiv.style.color = 'blue';
+	// dayDiv.style.fontWeight = 'bold';
+	// dayDiv.style.color = 'blue';
 	try {
 		// 백엔드로 요청 보내기
 		const response = await fetch(`${apiUrl}/workout-logs?date=${formattedDate}`, {
@@ -134,7 +127,14 @@ function renderWeek(selectedDate){
 		}
 
 		dayDiv.addEventListener('click', async () => {
-			await getWorkoutDataAtSelectedDate(date, dayDiv);
+			const year = currentDate.getFullYear();
+			const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+			const day = String(dayDiv.textContent).padStart(2, '0');
+			const formattedDate = `${year}-${month}-${day}`;
+			const workoutData = await getWorkoutDataAtSelectedDate(formattedDate);
+			if (workoutData) {
+				renderWorkoutRecords(workoutData, formattedDate);
+			}
 		});
 
 		calendarContent.appendChild(dayDiv);
@@ -175,7 +175,14 @@ function renderMonth(selectedDate){
 		}
 
 		dayDiv.addEventListener('click', async() => {
-			await getWorkoutDataAtSelectedDate(date, dayDiv);
+			const year = currentDate.getFullYear();
+			const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+			const day = String(dayDiv.textContent).padStart(2, '0');
+			const formattedDate = `${year}-${month}-${day}`;
+			const workoutData = await getWorkoutDataAtSelectedDate(formattedDate);
+			if (workoutData) {
+				renderWorkoutRecords(workoutData, formattedDate);
+			}
 		});
 
 		calendarContent.appendChild(dayDiv);
