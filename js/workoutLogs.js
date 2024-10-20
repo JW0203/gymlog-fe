@@ -123,10 +123,12 @@ function addSet(workoutId) {
 	const newSet = document.createElement("li");
 
 	newSet.innerHTML = `
-    <span>${setCount}</span>
-    <input type="number" placeholder="kg" min="0">
-    <input type="number" placeholder="횟수" min="0">
-    <button class="delete-set">삭제</button>
+    <div style="display: flex; align-items: center;">
+      <span>${setCount}</span>
+      <input type="number" placeholder="kg" min="0" style="margin-left: 10px; flex: 1;">
+      <input type="number" placeholder="횟수" min="0" style="margin-left: 10px; flex: 1;">
+      <button class="delete-set" style="margin-left: 10px;">삭제</button>
+    </div>
   `;
 
 	setList.appendChild(newSet);
