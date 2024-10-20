@@ -66,7 +66,7 @@ function formatDate(date) {
 }
 
 // 선택한 날짜를 마크하고 해당 날짜의 운동 기록을 표시하는 함수
-async function getWorkoutDataAtSelectedDate(selectedDate) {
+async function getWorkoutDataAtSelectedDate(selectedDate, dayDiv) {
 	const accessToken = localStorage.getItem('accessToken');
 	if (!accessToken) {
 		alert('로그인이 필요합니다.');
@@ -84,8 +84,10 @@ async function getWorkoutDataAtSelectedDate(selectedDate) {
 	});
 
 	// 선택된 날짜에 스타일 추가
-	// dayDiv.style.fontWeight = 'bold';
-	// dayDiv.style.color = 'blue';
+	if (dayDiv) {
+        dayDiv.style.fontWeight = 'bold';
+        dayDiv.style.color = 'blue';
+    }
 	try {
 		// 백엔드로 요청 보내기
 		const response = await fetch(`${apiUrl}/workout-logs?date=${formattedDate}`, {
@@ -133,7 +135,7 @@ function renderWeek(selectedDate){
 		dayDiv.addEventListener('click', async () => {
 			const formattedDate = dayDiv.dataset.fullDate; 
 			console.log(`clicked: ${formattedDate}`);
-			const workoutData = await getWorkoutDataAtSelectedDate(formattedDate);
+			const workoutData = await getWorkoutDataAtSelectedDate(formattedDate, dayDiv);
 			if (workoutData) {
 				renderWorkoutRecords(workoutData, formattedDate);
 			}
@@ -181,7 +183,7 @@ function renderMonth(selectedDate){
 
 		dayDiv.addEventListener('click', async() => {
 			const formattedDate = dayDiv.dataset.fullDate; 
-			const workoutData = await getWorkoutDataAtSelectedDate(formattedDate);
+			const workoutData = await getWorkoutDataAtSelectedDate(formattedDate, dayDiv);
 			if (workoutData) {
 				renderWorkoutRecords(workoutData, formattedDate);
 			}
@@ -404,7 +406,7 @@ async function handleUpdateWorkouts(workoutData, date) {
 	try {
         await updateWorkout(updatedWorkoutData, date);
         // 성공적으로 업데이트된 후 새로운 데이터를 가져와 화면을 갱신
-        const newWorkoutData = await getWorkoutDataAtSelectedDate(date);
+        const newWorkoutData = await getWorkoutDataAtSelectedDate(date, dayDiv);
         if (newWorkoutData) {
             renderWorkoutRecords(newWorkoutData, date);
         }
