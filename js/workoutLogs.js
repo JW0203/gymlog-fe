@@ -121,13 +121,14 @@ function addSet(workoutId) {
 	const setCount = setList.childElementCount + 1; // 현재 세트 번호
 
 	const newSet = document.createElement("li");
+	newSet.classList.add("set-item"); // 클래스 추가
 
 	newSet.innerHTML = `
-    <div style="display: flex; align-items: center;">
-      <span>${setCount}</span>
-      <input type="number" placeholder="kg" min="0" style="margin-left: 10px; flex: 1;">
-      <input type="number" placeholder="횟수" min="0" style="margin-left: 10px; flex: 1;">
-      <button class="delete-set" style="margin-left: 10px;">삭제</button>
+    <div class="set-content">
+      <span class="set-number">${setCount}</span>
+      <input type="number" placeholder="kg" min="0" class="set-weight">
+      <input type="number" placeholder="횟수" min="0" class="set-reps">
+      <button class="delete-set">삭제</button>
     </div>
   `;
 

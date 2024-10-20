@@ -247,3 +247,47 @@ footer {
     margin: 0;
     padding: 0;
 }
+
+/* addSet 스타일 */
+.set-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.set-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.set-number {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.set-weight, .set-reps {
+    margin-left: 10px;
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.delete-set {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #e74c3c;
+    color: white;
+    cursor: pointer;
+}
+
+.delete-set:hover {
+    background-color: #c0392b;
+}
