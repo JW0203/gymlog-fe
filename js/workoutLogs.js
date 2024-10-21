@@ -138,8 +138,6 @@ function addSet(workoutId) {
 
 // 세트 삭제 기능
 function deleteSet(element, workoutId) {
-	// const setList = document.getElementById(`set-list-${workoutId}`);
-    // element.parentElement.remove();
 	const setItem = element.closest('.set-item'); // set-item 클래스를 가진 가장 가까운 부모 요소 찾기
 	if (setItem) {
 		setItem.remove(); // 해당 세트 항목 삭제
