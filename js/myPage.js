@@ -24,7 +24,7 @@ async function showUserInfo() {
     clearContent(contentDiv);
 
     try {
-        const response = await fetch(`${apiUrl}/users/my`, {
+        const response = await fetch(`${apiUrl}/users/`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
