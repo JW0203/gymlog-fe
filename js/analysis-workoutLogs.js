@@ -161,6 +161,7 @@ function renderMonth(selectedDate){
 	calendarContent.classList.add('month-grid');  // 월간 그리드 적용
 
 	const monthDates = getMonthDates(selectedDate);
+	console.log(`selected Month dates: ${monthDates}`);
 	const firstDayOfMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1).getDay();  // 해당 달의 첫 번째 날의 요일
 
 	// 해당 월의 첫 번째 날의 요일 전까지 빈 칸 추가
