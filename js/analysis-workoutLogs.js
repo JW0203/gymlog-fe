@@ -153,7 +153,8 @@ function renderMonth(selectedDate){
 
 	// 먼저 달을 헤더에 표시
 	const year = selectedDate.getFullYear();
-	const month = selectedDate.toLocaleString('ko-KR', { month: 'long' });
+	// const month = selectedDate.toLocaleString('ko-KR', { month: 'long' });
+	const month = selectedDate.getMonth();
 	calendarHeader.innerHTML = `<h3>${year}년 ${month}</h3>`;
 
 	calendarContent.innerHTML = '';  // 기존 콘텐츠 제거
