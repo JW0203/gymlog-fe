@@ -173,11 +173,15 @@ function renderMonth(selectedDate){
 	// 각 날짜 렌더링
 	monthDates.forEach(date => {
 		const dayDiv = document.createElement('div');
+		const year = date.getFullYear();
+		const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based, so add 1
+		const day = date.getDate().toString().padStart(2, '0');
+		const formattedDate = `${year}-${month}-${day}`;
 		// dayDiv.classList.add('day');
 		// dayDiv.textContent = date.getDate();  // 1, 2, 3, ... 형식으로 날짜만 표시
 		dayDiv.className = 'day';
 		dayDiv.textContent = date.getDate();
-        dayDiv.dataset.fullDate = date.toISOString().split('T')[0]; // YYYY-MM-DD 형식으로 저장
+        dayDiv.dataset.fullDate = formattedDate // YYYY-MM-DD 형식으로 저장
 
 		if (isToday(date)) {
 			dayDiv.classList.add('today');
