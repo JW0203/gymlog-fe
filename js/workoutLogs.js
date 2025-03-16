@@ -169,18 +169,11 @@ async function saveWorkout() {
 				exerciseName: exerciseName
 			});
 		});
-
-		// 운동 정보 수집
-		exercises.push({
-			bodyPart: bodyPart,
-			exerciseName: exerciseName
-		});
 	});
 
 	// 수집된 데이터를 requestData에 담음
 	const requestData = {
 		workoutLogs: workoutLogs,
-		exercises: exercises
 	};
 
 	console.log('Request Data:', requestData);
