@@ -103,7 +103,7 @@ async function getWorkoutDataAtSelectedDate(selectedDate, dayDiv) {
 		}
 
 		const workoutData = await response.json();
-		renderWorkoutRecords(workoutData, formattedDate);
+		renderWorkoutRecords(workoutData, formattedDate, dayDiv);
 	} catch (error) {
 		console.error('운동 기록 조회 중 오류 발생:', error);
 		alert('운동 기록을 불러오는 중 오류가 발생했습니다.');
@@ -137,7 +137,7 @@ function renderWeek(selectedDate){
 			console.log(`clicked: ${formattedDate}`);
 			const workoutData = await getWorkoutDataAtSelectedDate(formattedDate, dayDiv);
 			if (workoutData) {
-				renderWorkoutRecords(workoutData, formattedDate);
+				renderWorkoutRecords(workoutData, formattedDate, dayDiv);
 			}
 		});
 
@@ -191,7 +191,7 @@ function renderMonth(selectedDate){
 			const formattedDate = dayDiv.dataset.fullDate; 
 			const workoutData = await getWorkoutDataAtSelectedDate(formattedDate, dayDiv);
 			if (workoutData) {
-				renderWorkoutRecords(workoutData, formattedDate);
+				renderWorkoutRecords(workoutData, formattedDate, dayDiv);
 			}
 		});
 
@@ -264,7 +264,7 @@ function injectAnalysisUI() {
 	renderWeek(selectedDate);
 }
 
-function renderWorkoutRecords(workoutData, date) {
+function renderWorkoutRecords(workoutData, date, dayDiv) {
     const recordsDiv = document.getElementById('exercise-records');
     recordsDiv.innerHTML = `<h3>${date} 운동 기록</h3>`;
 
@@ -319,7 +319,7 @@ function renderWorkoutRecords(workoutData, date) {
     const editButton = document.createElement('button');
     editButton.id = 'edit-workout-button';
     editButton.textContent = '수정';
-    editButton.addEventListener('click', () => enableEditMode(workoutData, date));
+    editButton.addEventListener('click', () => enableEditMode(workoutData, date, dayDiv));
     buttonContainer.appendChild(editButton);
 
     recordsDiv.appendChild(buttonContainer);
@@ -337,7 +337,7 @@ async function handleDeleteSelectedWorkouts(workoutData, date) {
 	}
 }
 
-async function handleUpdateWorkouts(workoutData, date) {
+async function handleUpdateWorkouts(workoutData, date, dayDiv) {
 	const table = document.querySelector('.workout-record-table');
     const rows = table.querySelectorAll('tr:not(:first-child)');
 
@@ -405,16 +405,15 @@ async function updateWorkout( updateWorkoutData, date) {
         bodyPart: workout.exercise.bodyPart,
         exerciseName: workout.exercise.exerciseName
     }));
-	const exercises = updateWorkoutData.map(workout => ({
-        bodyPart: workout.exercise.bodyPart,
-        exerciseName: workout.exercise.exerciseName
-    }));
+	// const exercises = updateWorkoutData.map(workout => ({
+    //     bodyPart: workout.exercise.bodyPart,
+    //     exerciseName: workout.exercise.exerciseName
+    // }));
 
 	const requestBody = {
 		updateWorkoutLogs,
-		exercises
+		// exercises
 	};
-	console.log('Request Data:', requestBody);
 
 	try {
 		// 백엔드로 요청 보내기
@@ -435,12 +434,12 @@ async function updateWorkout( updateWorkoutData, date) {
 		return await response.json();
 
 	} catch (error) {
-		console.error('운동 기록 삭제 중 오류 발생:', error);
-		alert('운동 기록을 삭제하는 중 오류가 발생했습니다.');
+		console.error('운동 기록 업데이트 중 오류 발생:', error);
+		alert('운동 기록을 업데이트하는 중 오류가 발생했습니다.');
 	}
 }
 
-function enableEditMode(workoutData, date) {
+function enableEditMode(workoutData, date, dayDiv) {
     const table = document.querySelector('.workout-record-table');
     const rows = table.querySelectorAll('tr:not(:first-child)');
     
@@ -463,7 +462,7 @@ function enableEditMode(workoutData, date) {
     const saveButton = document.createElement('button');
     saveButton.id = 'save-workout-button';
     saveButton.textContent = '저장';
-    saveButton.addEventListener('click', () => handleUpdateWorkouts(workoutData, date));
+    saveButton.addEventListener('click', () => handleUpdateWorkouts(workoutData, date, dayDiv));
     buttonContainer.appendChild(saveButton);
 
     // 수정 취소 버튼 추가
