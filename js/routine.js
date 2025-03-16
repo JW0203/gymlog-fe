@@ -121,23 +121,16 @@ async function saveRoutine() {
 	const bodyParts = document.querySelectorAll('[name="body-part"]');
 
 	const routines = [];
-	const exercises = [];
 	exerciseNames.forEach((exerciseName, index) => {
 		routines.push({
 			routineName: routineName,
 			bodyPart: bodyParts[index].value,
 			exerciseName: exerciseName.value
 		});
-		exercises.push({
-			bodyPart: bodyParts[index].value,
-			exerciseName: exerciseName.value
-		});
 	});
 
 	const requestData = {
-		routineName: routineName,
 		routines: routines,
-		exercises: exercises
 	};
 
 	// 백엔드로 데이터 전송
@@ -213,9 +206,7 @@ async function updateRoutine() {
 	// 요청 데이터 생성
 	const exercises = Array.from(exercisesMap, ([exerciseName, bodyPart]) => ({ exerciseName, bodyPart }));
 	const requestData = {
-		routineName: routineName,
 		updateData: updatedExercises,
-		exercises
 	};
 	console.log(requestData)
 	try{
