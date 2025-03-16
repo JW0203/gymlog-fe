@@ -33,12 +33,13 @@ async function showUserInfo() {
         });
 
         if (!response.ok) {
+            alert('사용자 정보를 불러오는 데 실패했습니다.');
             throw new Error('사용자 정보를 불러오는 데 실패했습니다.');
         }
 
         const data = await response.json();
         const workoutLogs = await getUsersAllWorkoutInfo();
-        const groupedWorkoutLogs = groupWorkoutDataByCategory(workoutLogs);
+        // const groupedWorkoutLogs = groupWorkoutDataByCategory(workoutLogs);
 
         // 사용자 정보 및 운동 기록 화면 구성
         const userInfoDiv = document.createElement('div');
@@ -46,12 +47,13 @@ async function showUserInfo() {
         userInfoDiv.innerHTML = `
             <h2>마이 페이지</h2>
             <p><strong>이메일:</strong> ${data.email}</p>
-            <p><strong>이름:</strong> ${data.name}</p>
+            <p><strong>닉네임:</strong> ${data.nickName}</p>
             <p><strong>가입일:</strong> ${new Date(data.createdAt).toLocaleDateString()}</p>
             <p><strong>운동기록:</strong></p>
         `;
 
-        const workoutTable = renderWorkoutLogsTable(groupedWorkoutLogs);
+        // const workoutTable = renderWorkoutLogsTable(groupedWorkoutLogs);
+        const workoutTable = renderWorkoutLogsTable(workoutLogs);
         userInfoDiv.appendChild(workoutTable);
 
         const deleteButton = document.createElement('button');
@@ -108,108 +110,113 @@ async function deleteAccount() {
     }
 }
 
-function groupWorkoutDataByCategory(responseData) {
-    // 신체 부위별로 그룹화된 데이터를 저장할 객체
-    const groupedData = {};
-
-    // 신체 부위별로 데이터를 순회하여 연도별 및 월별 데이터를 그룹화
-    responseData.uniqueBodyParts.forEach((bodyPart) => {
-        groupedData[bodyPart] = {};
-
-        // 연도별 및 월별 데이터 결합하여 그룹화
-        Object.keys(responseData.aggregatedData.year).forEach((year) => {
-            const exercisesInYear = responseData.aggregatedData.year[year][bodyPart];
-            if (exercisesInYear) {
-                Object.keys(exercisesInYear).forEach((exerciseName) => {
-                    if (!groupedData[bodyPart][exerciseName]) {
-                        groupedData[bodyPart][exerciseName] = {};
-                    }
-                    groupedData[bodyPart][exerciseName][year] = {
-                        sets: exercisesInYear[exerciseName],
-                        months: {}
-                    };
-                });
-            }
-        });
-
-        // 월별 데이터 그룹화하여 연도와 결합
-        Object.keys(responseData.aggregatedData.month).forEach((month) => {
-            const exercisesInMonth = responseData.aggregatedData.month[month][bodyPart];
-            if (exercisesInMonth) {
-                Object.keys(exercisesInMonth).forEach((exerciseName) => {
-                    // 연도와 월을 결합하여 저장
-                    Object.keys(groupedData[bodyPart][exerciseName] || {}).forEach((year) => {
-                        if (groupedData[bodyPart][exerciseName][year]) {
-                            groupedData[bodyPart][exerciseName][year].months[month] = exercisesInMonth[exerciseName];
-                        }
-                    });
-                });
-            }
-        });
-    });
-
-    return groupedData;
-}
-
 // 운동 기록을 표로 변환
-function renderWorkoutLogsTable(groupedWorkoutLogs) {
-    const table = document.createElement('table');
-    table.className = 'my-page-workout-logs-table';
+function renderWorkoutLogsTable(workoutLogs) {
+    const aggregatedData = workoutLogs.aggregatedData;
+    // 테이블 생성
+    const table = document.createElement("table");
+    table.classList.add("analysis-workoutLogs");
+    table.style.borderCollapse = "collapse";
+    table.style.textAlign = "center";
 
-    // 테이블 헤더 추가
-    const header = table.createTHead();
-    const headerRow = header.insertRow();
-    headerRow.innerHTML = `
-        <th>연도</th>
-        <th>월</th>
-        <th>신체 부위</th>
-        <th>운동 이름</th>
-        <th>세트/횟수</th>
-    `;
-
-    // 테이블 바디 생성
-    const tbody = table.createTBody();
-
-    // 신체 부위별로 데이터 순회
-    Object.keys(groupedWorkoutLogs).forEach((bodyPart) => {
-        const exercises = groupedWorkoutLogs[bodyPart];
-
-        // 운동별로 순회
-        Object.keys(exercises).forEach((exerciseName) => {
-            const years = exercises[exerciseName];
-
-            // 연도별로 순회
-            Object.keys(years).forEach((year) => {
-                const yearData = years[year];
-                const sets = yearData.sets;
-
-                // 월별 데이터가 있는 경우, 연도와 함께 출력
-                if (Object.keys(yearData.months).length > 0) {
-                    Object.keys(yearData.months).forEach((month) => {
-                        const monthSets = yearData.months[month];
-                        const row = tbody.insertRow();
-                        row.innerHTML = `
-                            <td>${year}</td>
-                            <td>${month}</td>
-                            <td>${bodyPart}</td>
-                            <td>${exerciseName}</td>
-                            <td>${monthSets.join(', ')}</td> <!-- 월별 세트 표시 -->
-                        `;
-                    });
-                } else {
-                    // 월 데이터가 없을 경우 연도만 표시
-                    const row = tbody.insertRow();
-                    row.innerHTML = `
-                        <td>${year}</td>
-                        <td>-</td> <!-- 월 데이터가 없을 경우 -->
-                        <td>${bodyPart}</td>
-                        <td>${exerciseName}</td>
-                        <td>${sets.join(', ')}</td> <!-- 세트/횟수 표시 -->
-                    `;
-                }
-            });
-        });
+    // 헤더 행 추가
+    const headerRow = document.createElement("tr");
+    ["Year", "Month", "Body Part", "Exercise Name", "Max Weight", "Total set"].forEach(headerText => {
+        const th = document.createElement("th");
+        th.textContent = headerText;
+        th.style.padding = "8px";
+        headerRow.appendChild(th);
     });
+    table.appendChild(headerRow);
+
+    // 각 계층별로 반복 처리
+    for (const year in aggregatedData) {
+        const months = aggregatedData[year];
+
+        // 현재 연도에 해당하는 전체 행 수 계산 (하위 Exercise 단위)
+        let yearRowSpan = 0;
+        for (const month in months) {
+            const bodyParts = months[month];
+            for (const bodyPart in bodyParts) {
+                const exercises = bodyParts[bodyPart];
+                for (const exercise in exercises) {
+                    yearRowSpan++;
+                }
+            }
+        }
+        let isYearFirstRow = true;
+
+        // Month 반복
+        for (const month in months) {
+            const bodyParts = months[month];
+
+            // 현재 월에 해당하는 전체 행 수 계산
+            let monthRowSpan = 0;
+            for (const bodyPart in bodyParts) {
+                const exercises = bodyParts[bodyPart];
+                for (const exercise in exercises) {
+                    monthRowSpan++;
+                }
+            }
+            let isMonthFirstRow = true;
+
+            // Body Part 반복
+            for (const bodyPart in bodyParts) {
+                const exercises = bodyParts[bodyPart];
+                // 각 운동 반복
+                for (const exercise in exercises) {
+                    const { maxWeight, totalSet } = exercises[exercise];
+                    const row = document.createElement("tr");
+
+                    // 연도 셀 (첫 행에만 추가, rowspan 사용)
+                    if (isYearFirstRow) {
+                        const tdYear = document.createElement("td");
+                        tdYear.textContent = year;
+                        tdYear.rowSpan = yearRowSpan;
+                        tdYear.style.padding = "8px";
+                        row.appendChild(tdYear);
+                        isYearFirstRow = false;
+                    }
+
+                    // 월 셀 (해당 월의 첫 행에만 추가, rowspan 사용)
+                    if (isMonthFirstRow) {
+                        const tdMonth = document.createElement("td");
+                        tdMonth.textContent = month;
+                        tdMonth.rowSpan = monthRowSpan;
+                        tdMonth.style.padding = "8px";
+                        row.appendChild(tdMonth);
+                        isMonthFirstRow = false;
+                    }
+
+                    // Body Part 셀
+                    const tdBodyPart = document.createElement("td");
+                    tdBodyPart.textContent = bodyPart;
+                    tdBodyPart.style.padding = "8px";
+                    row.appendChild(tdBodyPart);
+
+                    // Exercise Name 셀
+                    const tdExercise = document.createElement("td");
+                    tdExercise.textContent = exercise;
+                    tdExercise.style.padding = "8px";
+                    row.appendChild(tdExercise);
+
+                    // Max Weight 셀
+                    const tdMaxWeight = document.createElement("td");
+                    tdMaxWeight.textContent = maxWeight;
+                    tdMaxWeight.style.padding = "8px";
+                    row.appendChild(tdMaxWeight);
+
+                    // Total set 셀
+                    const tdTotalSet = document.createElement("td");
+                    tdTotalSet.textContent = totalSet;
+                    tdTotalSet.style.padding = "8px";
+                    row.appendChild(tdTotalSet);
+
+                    table.appendChild(row);
+                }
+            }
+        }
+    }
 
     return table;
 }
